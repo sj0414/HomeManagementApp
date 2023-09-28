@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "223760284790",
+    "firebase_url": "https://homemanagementapp-42b1d-default-rtdb.firebaseio.com",
+    "project_id": "homemanagementapp-42b1d",
+    "storage_bucket": "homemanagementapp-42b1d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:223760284790:android:d98a5f2c8f91e3a9d8f357",
+        "android_client_info": {
+          "package_name": "com.example.home_management_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC6ktv5VSj1KbLCLeQsanfkr5e_dpl0Fh4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
