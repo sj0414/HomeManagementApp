@@ -15,7 +15,8 @@ class MainActivity : AppCompatActivity() {
         binding.navigation.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.menu_calendar -> {
-                    supportFragmentManager.beginTransaction().replace(R.id.main_frm, CalendarFragment())
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.main_frm, CalendarFragment())
                         .commit()
                     return@setOnItemSelectedListener true
                 }
@@ -40,4 +41,6 @@ class MainActivity : AppCompatActivity() {
 
         binding.navigation.selectedItemId = R.id.menu_calendar
     }
+
+
 }
