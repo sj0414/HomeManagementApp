@@ -7,6 +7,10 @@ android {
     namespace 'com.example.home_management_app'
     compileSdk 33
 
+    buildFeatures{
+        viewBinding = true
+    }
+
     defaultConfig {
         applicationId "com.example.home_management_app"
         minSdk 30
