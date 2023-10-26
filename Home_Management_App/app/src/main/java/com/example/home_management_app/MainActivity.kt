@@ -27,6 +27,20 @@ class MainActivity : AppCompatActivity() {
                     return@setOnItemSelectedListener true
                 }
 
+                R.id.menu_role_management -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.main_frm, RoleManagementFragment())
+                        .commit()
+                    return@setOnItemSelectedListener true
+                }
+
+                R.id.menu_for_you -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.main_frm, ForYouFragment())
+                        .commit()
+                    return@setOnItemSelectedListener true
+                }
+
                 R.id.menu_my_page -> {
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.main_frm, MyPageFragment()).commit()
