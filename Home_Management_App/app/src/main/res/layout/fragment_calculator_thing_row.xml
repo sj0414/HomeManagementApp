@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:padding="10dp"
+    android:layout_marginHorizontal="10dp">
+    <TextView
+        android:id="@+id/thing"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="물품"
+        android:layout_weight="2"/>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="2">
+        <ImageView
+            android:id="@+id/calculator_roll_bg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/calculator_roll_bg"
+            android:layout_gravity="center" />
+        <TextView
+            android:id="@+id/writer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="역할"
+            android:gravity="center"
+            android:layout_gravity="center"/>
+    </FrameLayout>
+    <CheckBox
+        android:id="@+id/thingCheckbox"
+        android:checked="false"
+        android:visibility="visible"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"/>
+
+</LinearLayout>
