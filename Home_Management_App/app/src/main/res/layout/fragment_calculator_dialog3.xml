@@ -19,7 +19,7 @@
         android:text="금액을 입력해주세요."
         android:textSize="20dp"/>
     <EditText
-        android:id="@+id/expenditure_text1"
+        android:id="@+id/expenditureText1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
@@ -50,25 +50,25 @@
             android:gravity="center"
             android:orientation="horizontal">
             <RadioButton
-                android:id="@+id/식비"
+                android:id="@+id/use1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="식비"
                 android:layout_marginHorizontal="10dp"/>
             <RadioButton
-                android:id="@+id/쇼핑"
+                android:id="@+id/use2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="쇼핑"
                 android:layout_marginRight="10dp"/>
             <RadioButton
-                android:id="@+id/교육"
+                android:id="@+id/use3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="교육"
                 android:layout_marginRight="10dp"/>
             <RadioButton
-                android:id="@+id/의료"
+                android:id="@+id/use4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="의료"
@@ -80,25 +80,25 @@
             android:gravity="center"
             android:orientation="horizontal">
             <RadioButton
-                android:id="@+id/공과금"
+                android:id="@+id/use5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="공과금"
                 android:layout_marginHorizontal="10dp"/>
             <RadioButton
-                android:id="@+id/통신"
+                android:id="@+id/use6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="통신"
                 android:layout_marginRight="10dp"/>
             <RadioButton
-                android:id="@+id/교통"
+                android:id="@+id/use7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="교통"
                 android:layout_marginRight="10dp"/>
             <RadioButton
-                android:id="@+id/기타"
+                android:id="@+id/use8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="기타"
@@ -115,7 +115,7 @@
         android:text="지출 내용을 입력해주세요."
         android:textSize="20dp"/>
     <EditText
-        android:id="@+id/expenditure_text2"
+        android:id="@+id/expenditureText2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"

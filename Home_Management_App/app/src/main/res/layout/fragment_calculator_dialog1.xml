@@ -19,7 +19,7 @@
         android:text="구비 필요 용품을 입력해주세요."
         android:textSize="20dp"/>
     <EditText
-        android:id="@+id/thing_text"
+        android:id="@+id/thingText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
