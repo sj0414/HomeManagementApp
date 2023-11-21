@@ -10,6 +10,8 @@ import android.app.AlertDialog
 import android.widget.RadioButton
 import android.widget.Toast
 import android.util.Log
+import android.widget.AdapterView
+import android.widget.RadioGroup
 import com.example.home_management_app.databinding.*
 
 class CalculatorFragment : Fragment() {
@@ -22,15 +24,16 @@ class CalculatorFragment : Fragment() {
     var total: Int = 0
     var left: Int = 0
     var percent: Double = 0.0
+    lateinit var type: String
     val accountBookMap = mutableMapOf(
-        "use1" to 0,
-        "use2" to 0,
-        "use3" to 0,
-        "use4" to 0,
-        "use5" to 0,
-        "use6" to 0,
-        "use7" to 0,
-        "use8" to 0
+        "식비" to 0,
+        "쇼핑" to 0,
+        "교육" to 0,
+        "의료" to 0,
+        "공과금" to 0,
+        "통신" to 0,
+        "교통" to 0,
+        "기타" to 0
     )
 
     lateinit var adapter: CalculatorThingAdapter
@@ -45,6 +48,7 @@ class CalculatorFragment : Fragment() {
     }
 
     fun init() {
+        // database 연결
         thingData.add(CalculatorThingData("물품", "작성자", false, View.INVISIBLE))
         thingData.add(CalculatorThingData("휴지", "아빠", false, View.VISIBLE))
         thingData.add(CalculatorThingData("치약", "엄마", false, View.VISIBLE))
@@ -126,6 +130,15 @@ class CalculatorFragment : Fragment() {
 
         dialog.show()
     }
+
+    inner class CustomOnItemSelectedListener : AdapterView.OnItemSelectedListener {
+        override fun onNothingSelected(parent: AdapterView<*>?) {
+        }
+
+        override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+            type = parent?.getItemAtPosition(position).toString()
+        }
+    }
     private fun addItemDialog3() {
         val builder = AlertDialog.Builder(requireContext())
         val dialogBinding = FragmentCalculatorDialog3Binding.inflate(
@@ -133,7 +146,8 @@ class CalculatorFragment : Fragment() {
         )
 
         val expenditureText = dialogBinding.expenditureText1
-        val typeRadioGroup = dialogBinding.typeRadioGroup
+        dialogBinding.spinner.onItemSelectedListener = CustomOnItemSelectedListener()
+        //val typeRadioGroup = dialogBinding.typeRadioGroup
         val detailText = dialogBinding.expenditureText2
         val buttonAdd = dialogBinding.calDialogFin3
 
@@ -158,50 +172,59 @@ class CalculatorFragment : Fragment() {
 
             if (expenditure != null) {
                 // database 연결 필요
+                /*
                 var t: String = ""
-                when(typeRadioGroup.checkedRadioButtonId) {
-                    R.id.use1 -> {
-                        t = "식비"
-                        accountBookData.add(CalculatorAccountBookData(expenditure, t, detail))
-                        accountBookMap["use1"] = (accountBookMap["use1"] ?: 0) + expenditure
-                    }
-                    R.id.use2 -> {
-                        t = "쇼핑"
-                        accountBookData.add(CalculatorAccountBookData(expenditure, t, detail))
-                        accountBookMap["use2"] = (accountBookMap["use2"] ?: 0) + expenditure
-                    }
-                    R.id.use3 -> {
-                        t = "교육"
-                        accountBookData.add(CalculatorAccountBookData(expenditure, t, detail))
-                        accountBookMap["use3"] = (accountBookMap["use3"] ?: 0) + expenditure
-                    }
-                    R.id.use4 -> {
-                        t = "의료"
-                        accountBookData.add(CalculatorAccountBookData(expenditure, t, detail))
-                        accountBookMap["use4"] = (accountBookMap["use4"] ?: 0) + expenditure
-                    }
-                    R.id.use5 -> {
-                        t = "공과금"
-                        accountBookData.add(CalculatorAccountBookData(expenditure, t, detail))
-                        accountBookMap["use5"] = (accountBookMap["use5"] ?: 0) + expenditure
-                    }
-                    R.id.use6 -> {
-                        t = "통신"
-                        accountBookData.add(CalculatorAccountBookData(expenditure, t, detail))
-                        accountBookMap["use6"] = (accountBookMap["use6"] ?: 0) + expenditure
-                    }
-                    R.id.use7 -> {
-                        t = "교통"
-                        accountBookData.add(CalculatorAccountBookData(expenditure, t, detail))
-                        accountBookMap["use7"] = (accountBookMap["use7"] ?: 0) + expenditure
-                    }
-                    R.id.use8 -> {
-                        t = "기타"
-                        accountBookData.add(CalculatorAccountBookData(expenditure, t, detail))
-                        accountBookMap["use8"] = (accountBookMap["use8"] ?: 0) + expenditure
+
+                typeRadioGroup.setOnCheckedChangeListener { group, checkedId ->
+                    when (checkedId) {
+                        R.id.use1 -> {
+                            t = "식비"
+                            accountBookData.add(CalculatorAccountBookData(expenditure, t, detail))
+                            accountBookMap["use1"] = (accountBookMap["use1"] ?: 0) + expenditure
+                        }
+                        R.id.use2 -> {
+                            t = "쇼핑"
+                            accountBookData.add(CalculatorAccountBookData(expenditure, t, detail))
+                            accountBookMap["use2"] = (accountBookMap["use2"] ?: 0) + expenditure
+                        }
+                        R.id.use3 -> {
+                            t = "교육"
+                            accountBookData.add(CalculatorAccountBookData(expenditure, t, detail))
+                            accountBookMap["use3"] = (accountBookMap["use3"] ?: 0) + expenditure
+                        }
+                        R.id.use4 -> {
+                            t = "의료"
+                            accountBookData.add(CalculatorAccountBookData(expenditure, t, detail))
+                            accountBookMap["use4"] = (accountBookMap["use4"] ?: 0) + expenditure
+                        }
+                        R.id.use5 -> {
+                            t = "공과금"
+                            accountBookData.add(CalculatorAccountBookData(expenditure, t, detail))
+                            accountBookMap["use5"] = (accountBookMap["use5"] ?: 0) + expenditure
+                        }
+                        R.id.use6 -> {
+                            t = "통신"
+                            accountBookData.add(CalculatorAccountBookData(expenditure, t, detail))
+                            accountBookMap["use6"] = (accountBookMap["use6"] ?: 0) + expenditure
+                        }
+                        R.id.use7 -> {
+                            t = "교통"
+                            accountBookData.add(CalculatorAccountBookData(expenditure, t, detail))
+                            accountBookMap["use7"] = (accountBookMap["use7"] ?: 0) + expenditure
+                        }
+                        R.id.use8 -> {
+                            t = "기타"
+                            accountBookData.add(CalculatorAccountBookData(expenditure, t, detail))
+                            accountBookMap["use8"] = (accountBookMap["use8"] ?: 0) + expenditure
+                        }
                     }
                 }
-                //
+                */
+                accountBookData.add(CalculatorAccountBookData(expenditure, type, detail))
+                for ((category, value) in accountBookMap) {
+                    if (category == type)
+                        accountBookMap[category] = value + expenditure
+                }
 
                 total += expenditure
                 binding.expenditure.text = total.toString()
@@ -213,22 +236,21 @@ class CalculatorFragment : Fragment() {
                 //for ((category, value) in accountBookMap)
                 //    Log.d("Map", "$category, $accountBookMap[$category]")
 
-
-                val v1: Double = (accountBookMap["use1"]!!.toDouble() / total.toDouble()) * 100
+                val v1: Double = (accountBookMap["식비"]!!.toDouble() / total.toDouble()) * 100
                 binding.use1.text = String.format("%.2f", v1)
-                val v2: Double = (accountBookMap["use2"]!!.toDouble() / total.toDouble()) * 100
+                val v2: Double = (accountBookMap["쇼핑"]!!.toDouble() / total.toDouble()) * 100
                 binding.use2.text = String.format("%.2f", v2)
-                val v3: Double = (accountBookMap["use3"]!!.toDouble() / total.toDouble()) * 100
+                val v3: Double = (accountBookMap["교육"]!!.toDouble() / total.toDouble()) * 100
                 binding.use3.text = String.format("%.2f", v3)
-                val v4: Double = (accountBookMap["use4"]!!.toDouble() / total.toDouble()) * 100
+                val v4: Double = (accountBookMap["의료"]!!.toDouble() / total.toDouble()) * 100
                 binding.use4.text = String.format("%.2f", v4)
-                val v5: Double = (accountBookMap["use5"]!!.toDouble() / total.toDouble()) * 100
+                val v5: Double = (accountBookMap["공과금"]!!.toDouble() / total.toDouble()) * 100
                 binding.use5.text = String.format("%.2f", v5)
-                val v6: Double = (accountBookMap["use6"]!!.toDouble() / total.toDouble()) * 100
+                val v6: Double = (accountBookMap["통신"]!!.toDouble() / total.toDouble()) * 100
                 binding.use6.text = String.format("%.2f", v6)
-                val v7: Double = (accountBookMap["use7"]!!.toDouble() / total.toDouble()) * 100
+                val v7: Double = (accountBookMap["교통"]!!.toDouble() / total.toDouble()) * 100
                 binding.use7.text = String.format("%.2f", v7)
-                val v8: Double = (accountBookMap["use8"]!!.toDouble() / total.toDouble()) * 100
+                val v8: Double = (accountBookMap["기타"]!!.toDouble() / total.toDouble()) * 100
                 binding.use8.text = String.format("%.2f", v8)
 
                 dialog.dismiss()

@@ -37,75 +37,74 @@
         android:paddingTop="10dp"
         android:text="카테고리를 선택해주세요."
         android:textSize="20dp" />
+    <!--
     <RadioGroup
         android:id="@+id/typeRadioGroup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:gravity="center"
         android:layout_marginTop="5dp">
-        <LinearLayout
-            android:layout_width="match_parent"
+        <RadioButton
+            android:id="@+id/use1"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
-            <RadioButton
-                android:id="@+id/use1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="식비"
-                android:layout_marginHorizontal="10dp"/>
-            <RadioButton
-                android:id="@+id/use2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="쇼핑"
-                android:layout_marginRight="10dp"/>
-            <RadioButton
-                android:id="@+id/use3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="교육"
-                android:layout_marginRight="10dp"/>
-            <RadioButton
-                android:id="@+id/use4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="의료"
-                android:layout_marginRight="10dp"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
+            android:text="식비"
+            android:layout_marginHorizontal="10dp"/>
+        <RadioButton
+            android:id="@+id/use2"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
-            <RadioButton
-                android:id="@+id/use5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="공과금"
-                android:layout_marginHorizontal="10dp"/>
-            <RadioButton
-                android:id="@+id/use6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="통신"
-                android:layout_marginRight="10dp"/>
-            <RadioButton
-                android:id="@+id/use7"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="교통"
-                android:layout_marginRight="10dp"/>
-            <RadioButton
-                android:id="@+id/use8"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="기타"
-                android:layout_marginRight="10dp"/>
-        </LinearLayout>
+            android:text="쇼핑"
+            android:layout_marginRight="10dp"/>
+        <RadioButton
+            android:id="@+id/use3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="교육"
+            android:layout_marginRight="10dp"/>
+        <RadioButton
+            android:id="@+id/use4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="의료"
+            android:layout_marginRight="10dp"/>
+        <RadioButton
+            android:id="@+id/use5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="공과금"
+            android:layout_marginHorizontal="10dp"/>
+        <RadioButton
+            android:id="@+id/use6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="통신"
+            android:layout_marginRight="10dp"/>
+        <RadioButton
+            android:id="@+id/use7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="교통"
+            android:layout_marginRight="10dp"/>
+        <RadioButton
+            android:id="@+id/use8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="기타"
+            android:layout_marginRight="10dp"/>
     </RadioGroup>
-
+    -->
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="5dp"
+        android:layout_marginHorizontal="20dp"
+        android:padding="10dp"
+        android:entries="@array/type_arrays"
+        android:textStyle="bold"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
