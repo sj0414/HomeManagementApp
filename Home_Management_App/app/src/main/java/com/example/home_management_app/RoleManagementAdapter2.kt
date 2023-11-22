@@ -33,4 +33,10 @@ class RoleManagementAdapter2(val taskList: MutableList<TaskData>) : RecyclerView
     override fun getItemCount(): Int {
         return taskList.size
     }
+
+    fun setData(newList: List<TaskData>) {
+        taskList.clear()
+        taskList.addAll(newList)
+        notifyDataSetChanged()
+    }
 }

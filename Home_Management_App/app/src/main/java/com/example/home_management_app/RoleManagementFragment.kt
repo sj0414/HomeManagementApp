@@ -22,6 +22,7 @@ class RoleManagementFragment : Fragment() {
 
     lateinit var adapter: RoleManagementAdapter
     lateinit var adapter2: RoleManagementAdapter2
+    lateinit var itemAdapter: RoleManagementAdapter2
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -40,6 +41,10 @@ class RoleManagementFragment : Fragment() {
         }
 
         adapter = RoleManagementAdapter(roleData)
+        itemAdapter = RoleManagementAdapter2(ArrayList())
+        //binding.roleRecyclerView.
+        //binding.taskRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+        //binding.taskRecyclerView.adapter = itemAdapter
 
         binding.addRole.setOnClickListener {
             addRoleDialog()
@@ -95,7 +100,7 @@ class RoleManagementFragment : Fragment() {
             selectedRoleData?.tasks?.add(TaskData(newThing))
 
             adapter.notifyDataSetChanged()
-
+            itemAdapter.setData(selectedRoleData?.tasks ?: emptyList())
             dialog.dismiss()
         }
 
@@ -129,7 +134,7 @@ class RoleManagementFragment : Fragment() {
             selectedRoleData?.tasks?.removeIf { it.description == task }
 
             adapter.notifyDataSetChanged()
-
+            itemAdapter.setData(selectedRoleData?.tasks ?: emptyList())
             dialog.dismiss()
         }
 

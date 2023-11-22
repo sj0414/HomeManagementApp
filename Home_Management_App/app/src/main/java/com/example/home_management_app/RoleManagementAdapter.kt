@@ -15,8 +15,11 @@ class RoleManagementAdapter(val roleList: ArrayList<RoleManagementData>) : Recyc
     var itemClickListener:OnItemClickListener?=null
 
     inner class ViewHolder(val binding: FragmentRoleManagementRoleBinding) : RecyclerView.ViewHolder(binding.root) {
+        val itemRecyclerView: RecyclerView = binding.taskRecyclerView
+        val itemAdapter = RoleManagementAdapter2(ArrayList())  // 초기화 필요
         init {
-            //
+            itemRecyclerView.layoutManager = LinearLayoutManager(binding.root.context)
+            itemRecyclerView.adapter = itemAdapter
         }
     }
 
@@ -25,6 +28,12 @@ class RoleManagementAdapter(val roleList: ArrayList<RoleManagementData>) : Recyc
             LayoutInflater.from(parent.context),
             parent, false)
         return ViewHolder(view)
+    }
+
+    fun setData(newList: List<RoleManagementData>) {
+        roleList.clear()
+        roleList.addAll(newList)
+        notifyDataSetChanged()
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -38,7 +47,9 @@ class RoleManagementAdapter(val roleList: ArrayList<RoleManagementData>) : Recyc
         itemRecyclerView.layoutManager = layoutManager
 
         val itemAdapter = RoleManagementAdapter2(currentItem.tasks)
-        itemRecyclerView.adapter = itemAdapter
+        holder.itemRecyclerView.adapter = itemAdapter
+
+        itemAdapter.notifyDataSetChanged()
     }
 
     override fun getItemCount(): Int {
