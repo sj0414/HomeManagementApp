@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/menu_calendar"
+        android:title="@string/menu_calendar"
+        android:icon="@drawable/selector_bnv_calendar" />
+    <item android:id="@+id/menu_calculator"
+        android:title="@string/menu_calculator"
+        android:icon="@drawable/selector_bnv_calculator" />
+    <item android:id="@+id/menu_role_management"
+        android:title="@string/menu_role_management"
+        android:icon="@drawable/selector_bnv_role_management" />
+    <item android:id="@+id/menu_for_you"
+        android:title="@string/menu_for_you"
+        android:icon="@drawable/selector_bnv_for_you" />
+    <item android:id="@+id/menu_my_page"
+        android:title="@string/menu_my_page"
+        android:icon="@drawable/selector_bnv_my_page" />
+</menu>

@@ -2,40 +2,58 @@ package com.example.home_management_app
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.renderscript.Sampler.Value
 import com.example.home_management_app.databinding.ActivityMainBinding
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
 
 class MainActivity : AppCompatActivity() {
+
     lateinit var binding : ActivityMainBinding
-    lateinit var FDB : DatabaseReference
     override fun onCreate(savedInstanceState: Bundle?) {
         binding = ActivityMainBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
-
-        //데이터베이스 초기화
-        FDB = FirebaseDatabase.getInstance().reference
-
-        binding.btnAdd.setOnClickListener {
-            initAdd()
-        }
-
-        binding.btnDelete.setOnClickListener {
-            initDelete()
-        }
-
         setContentView(binding.root)
-    }
 
-    private fun initAdd(){
-        FDB.child("New").setValue("First")
-        FDB.child("Old").setValue("First2")
-    }
+        binding.navigation.setOnItemSelectedListener {
+            when (it.itemId) {
+                R.id.menu_calendar -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.main_frm, CalendarFragment())
+                        .commit()
+                    return@setOnItemSelectedListener true
+                }
 
-    private fun initDelete(){
+                R.id.menu_calculator -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.main_frm, CalculatorFragment()).commit()
+                    return@setOnItemSelectedListener true
+                }
 
+                R.id.menu_role_management -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.main_frm, RoleManagementFragment())
+                        .commit()
+                    return@setOnItemSelectedListener true
+                }
+
+                R.id.menu_for_you -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.main_frm, ForYouFragment())
+                        .commit()
+                    return@setOnItemSelectedListener true
+                }
+
+                R.id.menu_my_page -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.main_frm, MyPageFragment()).commit()
+                    return@setOnItemSelectedListener true
+                }
+
+                else -> {
+                    return@setOnItemSelectedListener true
+                }
+            }
+        }
+
+        binding.navigation.selectedItemId = R.id.menu_calendar
     }
 
 
