@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
 
                 R.id.menu_for_you -> {
                     supportFragmentManager.beginTransaction()
-                        .replace(R.id.main_frm, ForYouFragment())
+                        .replace(R.id.main_frm, ForYouOldFragment())
                         .commit()
                     return@setOnItemSelectedListener true
                 }
