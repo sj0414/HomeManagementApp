@@ -16,13 +16,13 @@ class GroupSelectActivity : AppCompatActivity() {
 
         binding.btnYes.setOnClickListener {
             val intent = Intent(this, GroupPresentActivity::class.java)
-            //intent.putExtra()
+            intent.putExtra("UserData",userData)
             startActivity(intent)
         }
 
         binding.btnNo.setOnClickListener {
             val intent = Intent(this, GroupAbsentActivity::class.java)
-            intent.putExtra("Key",userData)
+            intent.putExtra("UserData",userData)
             startActivity(intent)
         }
     }

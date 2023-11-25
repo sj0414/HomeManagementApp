@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.home_management_app.MainActivity
 import com.example.home_management_app.R
+import com.example.home_management_app.data.UserData
 import com.example.home_management_app.databinding.ActivityGroupGeneratingBinding
 import com.google.firebase.database.DatabaseReference
 
@@ -16,11 +17,20 @@ class GroupGeneratingActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        val userData = intent.getSerializableExtra("UserData") as UserData
+        userData.let{
+
+        }
+        val groupCode = intent.getStringExtra("GroupCode")
+
+        binding.tvFamilyCode.text = groupCode
+
         binding.btnConfirm.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
             //intent.putExtra()
 
             startActivity(intent)
+            finish()
         }
     }
 }

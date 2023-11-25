@@ -3,6 +3,7 @@ package com.example.home_management_app.login
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import com.example.home_management_app.data.UserData
 import com.example.home_management_app.databinding.ActivitySignUpBinding
 import com.google.firebase.database.DatabaseReference
@@ -19,6 +20,7 @@ class SignUpActivity : AppCompatActivity() {
         binding.btnNext.setOnClickListener {
             val intent = Intent(this, GroupSelectActivity::class.java)
             intent.putExtra("UserData",saveUser())
+            Log.d("UserData1",saveUser().toString())
             startActivity(intent)
         }
 
