@@ -13,6 +13,12 @@ import android.util.Log
 import android.widget.AdapterView
 import android.widget.RadioGroup
 import com.example.home_management_app.databinding.*
+import android.graphics.Color
+import com.github.mikephil.charting.charts.PieChart
+import com.github.mikephil.charting.components.Legend
+import com.github.mikephil.charting.data.PieData
+import com.github.mikephil.charting.data.PieDataSet
+import com.github.mikephil.charting.data.PieEntry
 
 class CalculatorFragment : Fragment() {
     lateinit var binding : FragmentCalculatorBinding
@@ -24,6 +30,7 @@ class CalculatorFragment : Fragment() {
     var total: Int = 0
     var left: Int = 0
     var percent: Double = 0.0
+    var leftpercent: Double = 0.0
     lateinit var type: String
     val accountBookMap = mutableMapOf(
         "식비" to 0,
@@ -44,6 +51,8 @@ class CalculatorFragment : Fragment() {
     ): View? {
         binding = FragmentCalculatorBinding.inflate(inflater, container, false)
         init()
+        pie1()
+        pie2()
         return binding.root
     }
 
@@ -231,8 +240,10 @@ class CalculatorFragment : Fragment() {
                 left = budget - total
                 binding.left.text = left.toString()
                 percent = (total.toDouble() / budget.toDouble()) * 100
+                leftpercent = 100.0 - percent
                 binding.use.text = String.format("%.2f", percent)
 
+                pie1()
                 //for ((category, value) in accountBookMap)
                 //    Log.d("Map", "$category, $accountBookMap[$category]")
 
@@ -253,6 +264,8 @@ class CalculatorFragment : Fragment() {
                 val v8: Double = (accountBookMap["기타"]!!.toDouble() / total.toDouble()) * 100
                 binding.use8.text = String.format("%.2f", v8)
 
+                pie2()
+
                 dialog.dismiss()
             } else {
                 Toast.makeText(requireContext(), "유효한 값을 입력하세요.", Toast.LENGTH_SHORT).show()
@@ -263,6 +276,91 @@ class CalculatorFragment : Fragment() {
         dialog.show()
     }
 
+    private fun pie1() {
+        val pieChart: PieChart = binding.chart1
+        val pieEntries = ArrayList<PieEntry>()
+
+        pieEntries.add(PieEntry(percent.toFloat(), "사용"))
+        pieEntries.add(PieEntry(leftpercent.toFloat(), "미사용"))
+
+        val dataSet = PieDataSet(pieEntries, "Categories")
+        dataSet.colors = mutableListOf(
+            Color.rgb(159, 189, 213),
+            Color.rgb(255, 255, 255),
+        )
+        dataSet.setDrawValues(false)
+
+        val pieData = PieData(dataSet)
+
+        pieChart.data = pieData
+
+        pieChart.description.isEnabled = false
+        pieChart.isRotationEnabled = false
+        pieChart.setHoleColor(Color.WHITE)
+        pieChart.setTransparentCircleColor(Color.WHITE)
+        pieChart.setTransparentCircleAlpha(110)
+        pieChart.setDrawEntryLabels(true)
+        pieChart.setEntryLabelColor(Color.BLACK)
+        pieChart.setEntryLabelTextSize(5f)
+        pieChart.setCenterText("")
+        val legend: Legend = pieChart.legend
+        legend.isEnabled = false
+
+        pieChart.invalidate()
+    }
+    private fun pie2() {
+        val pieChart: PieChart = binding.chart2
+        val pieEntries = ArrayList<PieEntry>()
+
+        val v1 = (accountBookMap["식비"]!!.toDouble() / total.toDouble()) * 100
+        val v2 = (accountBookMap["쇼핑"]!!.toDouble() / total.toDouble()) * 100
+        val v3 = (accountBookMap["교육"]!!.toDouble() / total.toDouble()) * 100
+        val v4 = (accountBookMap["의료"]!!.toDouble() / total.toDouble()) * 100
+        val v5 = (accountBookMap["공과금"]!!.toDouble() / total.toDouble()) * 100
+        val v6 = (accountBookMap["통신"]!!.toDouble() / total.toDouble()) * 100
+        val v7 = (accountBookMap["교통"]!!.toDouble() / total.toDouble()) * 100
+        val v8 = (accountBookMap["기타"]!!.toDouble() / total.toDouble()) * 100
+
+        pieEntries.add(PieEntry(v1.toFloat(), "식비"))
+        pieEntries.add(PieEntry(v2.toFloat(), "쇼핑"))
+        pieEntries.add(PieEntry(v3.toFloat(), "교육"))
+        pieEntries.add(PieEntry(v4.toFloat(), "의료"))
+        pieEntries.add(PieEntry(v5.toFloat(), "공과금"))
+        pieEntries.add(PieEntry(v6.toFloat(), "통신"))
+        pieEntries.add(PieEntry(v7.toFloat(), "교통"))
+        pieEntries.add(PieEntry(v8.toFloat(), "기타"))
+
+        val dataSet = PieDataSet(pieEntries, "Categories")
+        dataSet.colors = mutableListOf(
+            Color.rgb(255, 198, 179),
+            Color.rgb(255, 236, 179),
+            Color.rgb(255, 255, 179),
+            Color.rgb(217, 255, 179),
+            Color.rgb(179, 236, 255),
+            Color.rgb(179, 198, 255),
+            Color.rgb(198, 179, 255),
+            Color.rgb(255, 179, 255),
+        )
+        dataSet.setDrawValues(false)
+
+        val pieData = PieData(dataSet)
+
+        pieChart.data = pieData
+
+        pieChart.description.isEnabled = false
+        pieChart.isRotationEnabled = false
+        pieChart.setHoleColor(Color.WHITE)
+        pieChart.setTransparentCircleColor(Color.WHITE)
+        pieChart.setTransparentCircleAlpha(110)
+        pieChart.setDrawEntryLabels(false)
+        pieChart.setEntryLabelColor(Color.BLACK)
+        pieChart.setEntryLabelTextSize(5f)
+        pieChart.setCenterText("")
+        val legend: Legend = pieChart.legend
+        legend.isEnabled = false
+
+        pieChart.invalidate()
+    }
 }
 
 
