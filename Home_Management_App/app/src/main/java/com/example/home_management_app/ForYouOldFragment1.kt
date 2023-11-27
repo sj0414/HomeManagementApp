@@ -6,20 +6,25 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.home_management_app.databinding.FragmentCalculatorBinding
 import com.example.home_management_app.databinding.FragmentForYouOld1Binding
 import com.example.home_management_app.databinding.FragmentForYouOldNewsRowBinding
 import com.github.mikephil.charting.utils.Utils.init
+import kotlinx.coroutines.*
 import org.jsoup.Jsoup
 
 class ForYouOldFragment1 : Fragment() {
     lateinit var binding : FragmentForYouOld1Binding
     // database 연결 필요
-    val newsData: ArrayList<ForYouOldNewsData> = ArrayList()
+    //val newsData: ArrayList<ForYouOldNewsData> = ArrayList()
 
     lateinit var adapter: ForYouOldRVAdapter
+
+    val scope = CoroutineScope(Dispatchers.IO)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,29 +36,38 @@ class ForYouOldFragment1 : Fragment() {
         return binding.root
     }
 
-    fun init() {
-        // 크롤링할 URL 설정
-        val url = "https://news.naver.com/main/list.naver?mode=LS2D&mid=shm&sid1=103&sid2=241"
+    fun getnews() {
+        scope.launch {
+            adapter.newsList.clear()
+            // 크롤링할 URL 설정
+            val url = "https://news.naver.com/main/list.naver?mode=LS2D&mid=shm&sid1=103&sid2=241"
 
-        // Jsoup을 사용하여 웹 사이트에서 HTML 문서 가져오기
-        val document = Jsoup.connect(url).get()
+            // Jsoup을 사용하여 웹 사이트에서 HTML 문서 가져오기
+            val document = Jsoup.connect(url).get()
 
-        // 원하는 작업 수행 (예: 특정 클래스의 요소 추출)
-        val articles = document.select("div.list_body.newsflash_body ul li")
+            // 원하는 작업 수행 (예: 특정 클래스의 요소 추출)
+            val articles = document.select("div.list_body.newsflash_body ul li")
 
-        for (article in articles) {
-            val title = article.select("dt:not(.photo) a").text()
-            val news = article.select("span.writing").text()
-            val link = article.select("dt:not(.photo) a").attr("href")
-            // database 연결
-            newsData.add(ForYouOldNewsData(title, news, link))
+            for (article in articles) {
+                val title = article.select("dt:not(.photo) a").text()
+                val news = article.select("span.writing").text()
+                val link = article.select("dt:not(.photo) a").attr("href")
+                // database 연결
+                //newsData.add(ForYouOldNewsData(title, news, link))
+                adapter.newsList.add(ForYouOldNewsData(title, news, link))
+            }
+            withContext(Dispatchers.Main) {
+                adapter.notifyDataSetChanged()
+            }
         }
+    }
+
+    fun init() {
 
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext(),
             LinearLayoutManager.VERTICAL, false)
-        adapter = ForYouOldRVAdapter(newsData)
-        binding.recyclerView.adapter = adapter
-
+        //binding.recyclerView.addItemDecoration(DividerItemDecoration(this, LinearLayoutManager.VERTICAL))
+        adapter = ForYouOldRVAdapter(ArrayList<ForYouOldNewsData>())
         adapter.itemClickListener = object : ForYouOldRVAdapter.OnItemClickListener {
             override fun OnItemClick(data: ForYouOldNewsData, pos: Int, binding: FragmentForYouOldNewsRowBinding) {
                 // 클릭한 뉴스의 링크를 열기
@@ -61,5 +75,7 @@ class ForYouOldFragment1 : Fragment() {
                 startActivity(intent)
             }
         }
+        binding.recyclerView.adapter = adapter
+        getnews()
     }
 }
