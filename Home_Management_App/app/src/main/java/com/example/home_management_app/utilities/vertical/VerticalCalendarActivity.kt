@@ -38,7 +38,7 @@ class VerticalCalendarActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_vertical_calendar)
+        setContentView(R.layout.fragment_role_management)
         FirebaseApp.initializeApp(this)
 
         //데이터베이스 초기화

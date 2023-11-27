@@ -1,4 +1,4 @@
-package com.example.home_management_app
+package com.example.home_management_app.utilities.role
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

@@ -1,3 +1,38 @@
 <resources>
     <string name="app_name">Home_Management_App</string>
+    <string name="menu_calculator">가계 정리</string>
+    <string name="menu_calendar">일정 관리</string>
+    <string name="menu_role_management">역할</string>
+    <string name="menu_for_you">FOR YOU</string>
+    <string name="menu_my_page">마이 페이지</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- TODO: Role Management Strings & Color -->
+    <string name="delete_schedule_info">선택한 일정을 삭제하시겠습니까?</string>
+    <string name="confirm_delete">삭제</string>
+    <string name="text_selected_date">Selected Date</string>
+    <string name="week_calendar">Week Calendar</string>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#536DFE</color>
+    <color name="colorPrimaryLight">#C5CAE9</color>
+    <color name="colorPrimaryText">#212121</color>
+    <color name="colorSecondaryText">#757575</color>
+    <color name="colorIcons">#FFFFFF</color>
+    <color name="colorDivider">#BDBDBD</color>
+
+    <string name="month_calendar">Month Calendar</string>
+    <string name="page_month_calendar">Page Calendar</string>
+    <string name="simple_calendar">Simple Calendar</string>
+    <string name="example">Example</string>
+    <string name="selection_mode">Selection Mode</string>
+    <string name="none">None</string>
+    <string name="single">Single</string>
+    <string name="multiple">Multiple</string>
+    <string name="range">Range</string>
+    <string name="vertical">Vertical</string>
+    <string name="horizontal">Horizontal</string>
+    <string name="calendar_icon_license">Calendar Icon made by Freepik from www.flaticon.com</string>
+    <string name="infinite_calendar">Infinite Calendar</string>
+    <string name="text_orientation">Orientation</string>
 </resources>
