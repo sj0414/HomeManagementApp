@@ -30,6 +30,13 @@ class GroupRoleActivity : AppCompatActivity() {
             Toast.makeText(this, "$groupCode 에 입장하셨습니다!", Toast.LENGTH_SHORT).show()
             saveGroupMember(userData, groupCode!!, groupRole)
 
+            when(groupRole){
+                //시작기 main theme 바꾸기
+                "엄마","아빠" -> Toast.makeText(this, "테마 : Adult", Toast.LENGTH_SHORT).show()
+                "아들","딸" -> Toast.makeText(this, "테마 : Teen", Toast.LENGTH_SHORT).show()
+                "할머니","할아머지" -> Toast.makeText(this, "테마 : Old", Toast.LENGTH_SHORT).show()
+            }
+
             val intent = Intent(this, MainActivity::class.java)
             intent.putExtra("UserData", userData)
             intent.putExtra("GroupCode", groupCode)
