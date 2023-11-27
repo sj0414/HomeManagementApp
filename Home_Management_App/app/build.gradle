@@ -57,4 +57,11 @@ dependencies {
     //firebase dependency
     implementation("com.google.firebase:firebase-analytics-ktx")
     implementation(platform("com.google.firebase:firebase-bom:32.3.1"))
+
+    //youtube api 대신 라이브러리
+    implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:12.1.0'
+    implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:chromecast-sender:0.28'
+
+    //데이터 파싱
+    implementation 'org.jsoup:jsoup:1.11.3'
 }

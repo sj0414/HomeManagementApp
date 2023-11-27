@@ -2,11 +2,13 @@ package com.example.home_management_app
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.home_management_app.foryouadult.ForYouAdultFragment
 import com.example.home_management_app.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
     lateinit var binding : ActivityMainBinding
+    private var inputRole : Int = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         binding = ActivityMainBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
@@ -35,8 +37,14 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 R.id.menu_for_you -> {
+                    val fragment = when (inputRole) {
+//                        0 -> ForYouTeenFragment()
+//                        1 -> ForYouAdultFragment()
+//                        2 -> ForYouOldFragment()
+                        else -> ForYouAdultFragment()
+                    }
                     supportFragmentManager.beginTransaction()
-                        .replace(R.id.main_frm, ForYouFragment())
+                        .replace(R.id.main_frm, fragment)
                         .commit()
                     return@setOnItemSelectedListener true
                 }

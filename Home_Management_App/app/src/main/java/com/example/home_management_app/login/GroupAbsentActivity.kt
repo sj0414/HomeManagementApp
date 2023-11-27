@@ -44,6 +44,7 @@ class GroupAbsentActivity : AppCompatActivity() {
         rdb.child("groupManager").child("Calculator").setValue("")
         rdb.child("groupManager").child("ForYou").setValue("")
         rdb.child("groupManager").child("RoleManagement").setValue("")
+        rdb.child("grouManager").child("Calendar").setValue(",")
         rdb.child("groupManager").child("GroupCode").setValue(groupCode)
     }
 

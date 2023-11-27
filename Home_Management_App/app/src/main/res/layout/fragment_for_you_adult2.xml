@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guide_left"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintGuide_begin="20dp"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guide_right"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintGuide_end="20dp"/>
+
+        <ImageView
+            android:id="@+id/iv_adult_circle1"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="@id/guide_left"
+            android:layout_marginTop="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/adult_circle"
+            android:layout_gravity="center_vertical"/>
+
+        <TextView
+            android:id="@+id/tv_recipe_title"
+            app:layout_constraintTop_toTopOf="@id/iv_adult_circle1"
+            app:layout_constraintStart_toStartOf="@id/guide_left"
+            app:layout_constraintBottom_toBottomOf="@id/iv_adult_circle1"
+            android:text="오늘의 요리 레시피"
+            android:layout_marginLeft="15dp"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+            android:id="@+id/fl_recipe_youtube"
+            android:layout_width="0dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="10dp"
+            app:videoId="_oMtk3FaBlo"
+            app:autoPlay="true"
+            app:layout_constraintTop_toBottomOf="@id/tv_recipe_title"
+            app:layout_constraintStart_toStartOf="@id/guide_left"
+            app:layout_constraintEnd_toEndOf="@id/guide_right"/>
+
+        <View
+            android:id="@+id/sv_recipe_text"
+            android:layout_width="0dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintStart_toStartOf="@id/guide_left"
+            app:layout_constraintEnd_toEndOf="@+id/guide_right"
+            app:layout_constraintTop_toBottomOf="@id/fl_recipe_youtube"/>
+
+        <ImageView
+            android:id="@+id/iv_adult_circle2"
+            app:layout_constraintTop_toBottomOf="@id/sv_recipe_text"
+            app:layout_constraintStart_toStartOf="@id/guide_left"
+            android:layout_marginTop="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/adult_circle"
+            android:layout_gravity="center_vertical"/>
+
+        <TextView
+            android:id="@+id/tv_life_title"
+            app:layout_constraintTop_toTopOf="@id/iv_adult_circle2"
+            app:layout_constraintStart_toStartOf="@id/guide_left"
+            app:layout_constraintBottom_toBottomOf="@id/iv_adult_circle2"
+            android:text="오늘의 생활 TIP"
+            android:layout_marginLeft="15dp"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <View
+            android:id="@+id/sv_tip_text"
+            android:layout_width="0dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintStart_toStartOf="@id/guide_left"
+            app:layout_constraintEnd_toEndOf="@+id/guide_right"
+            app:layout_constraintTop_toBottomOf="@id/tv_life_title"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
