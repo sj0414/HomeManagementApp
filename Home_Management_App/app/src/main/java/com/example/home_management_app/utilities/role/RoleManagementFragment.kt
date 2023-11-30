@@ -1,44 +1,84 @@
 package com.example.home_management_app.utilities.role
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.PopupMenu
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.home_management_app.R
 import com.example.home_management_app.databinding.FragmentRoleManagementBinding
+import com.example.home_management_app.model.EventRepository
+import com.example.home_management_app.model.OnEventChangeListener
 import com.example.home_management_app.model.RecyclerCalendarConfiguration
 import com.example.home_management_app.model.SimpleEvent
 import com.example.home_management_app.utilities.CalendarUtils
+
 import com.example.home_management_app.utilities.ScheduleActionBottomSheetDialogFragment
 import com.example.home_management_app.utilities.vertical.VerticalRecyclerCalendarAdapter
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
-import com.google.firebase.ktx.Firebase
-import java.util.*
+import java.util.Calendar
+import java.util.Date
+import java.util.Locale
+import java.util.Random
 
-data class id_data(
-    var google_num: String? = null,
-    var id: String? = null,
-    var name: String? = null,
-    var password: String? = null
-)
-
-class RoleManagementFragment : Fragment() {
+class RoleManagementFragment : Fragment(), OnEventChangeListener {
     private val eventMap: HashMap<Int, SimpleEvent> = HashMap()
     // 받아온 데이터를 받을 리스트
-    private val treeList = ArrayList<id_data>()
     lateinit var FDB : DatabaseReference
     lateinit var binding: FragmentRoleManagementBinding
+    private val configuration: RecyclerCalendarConfiguration =
+        RecyclerCalendarConfiguration(
+            calenderViewType = RecyclerCalendarConfiguration.CalenderViewType.VERTICAL,
+            calendarLocale = Locale.getDefault(),
+            includeMonthHeader = true
+        )
+
+
+    override fun onEventChanged() {
+        updateCalendar()
+    }
+
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        // 이벤트와 역할 목록을 정의합니다.
+        val eventList = listOf("가족과 저녁 식사", "가족과 나들이", "헬스", "안과 진료")
+        val roleList = listOf("엄마", "아빠", "아들", "딸")
+        val random = Random()
+
+        // 기존의 이벤트 생성 루프
+        for (i in 0..30 step 3) {
+            val eventCal = Calendar.getInstance()
+            eventCal.add(Calendar.DATE, i * 3)
+
+            // 랜덤 이벤트와 역할을 선택
+            val selectedEvent = eventList[random.nextInt(eventList.size)]
+            val selectedRole = roleList[random.nextInt(roleList.size)]
+
+            val eventDate: Int =
+                (CalendarUtils.dateStringFromFormat(
+                    locale = configuration.calendarLocale,
+                    date = eventCal.time,
+                    format = CalendarUtils.DB_DATE_FORMAT
+                ) ?: "0").toInt()
+
+            val simpleEvent = SimpleEvent(
+                date = eventCal.time,
+                role = selectedRole,
+                title = selectedEvent,
+                color = ContextCompat.getColor(requireContext(), R.color.colorAccent)
+            )
+
+            // 이벤트를 EventRepository에 추가
+            EventRepository.addEvent(simpleEvent)
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,14 +91,7 @@ class RoleManagementFragment : Fragment() {
 
         // FloatingActionButton 설정
         val fab: FloatingActionButton = binding.fab
-        fab.setOnClickListener {
-            val bottomSheet = ScheduleActionBottomSheetDialogFragment()
-            bottomSheet.show(parentFragmentManager, "ScheduleActionBottomSheet")
-        }
-
-
-        //데이터베이스 초기화
-        FDB = FirebaseDatabase.getInstance().reference
+        fab.setOnClickListener { v: View? -> showScheduleActionBottomSheet() }
 
         val calendarRecyclerView: RecyclerView = binding.calendarRecyclerView
         val textView1 = binding.textView
@@ -75,36 +108,9 @@ class RoleManagementFragment : Fragment() {
         endCal.time = date
         endCal.add(Calendar.MONTH, 12)
 
-        val configuration: RecyclerCalendarConfiguration =
-            RecyclerCalendarConfiguration(
-                calenderViewType = RecyclerCalendarConfiguration.CalenderViewType.VERTICAL,
-                calendarLocale = Locale.getDefault(),
-                includeMonthHeader = true
-            )
-
         configuration.weekStartOffset = RecyclerCalendarConfiguration.START_DAY_OF_WEEK.MONDAY
 
-
-        val databaseRef = FirebaseDatabase.getInstance().getReference("groupManager/Calendar")
-
-
-        // Some Random Events
-        for (i in 0..30 step 3) {
-            val eventCal = Calendar.getInstance()
-            eventCal.add(Calendar.DATE, i * 3)
-            val eventDate: Int =
-                (CalendarUtils.dateStringFromFormat(
-                    locale = configuration.calendarLocale,
-                    date = eventCal.time,
-                    format = CalendarUtils.DB_DATE_FORMAT
-                )
-                    ?: "0").toInt()
-            eventMap[eventDate] = SimpleEvent(
-                eventCal.time,
-                "Event #$i",
-                ContextCompat.getColor(context, R.color.colorAccent)
-            )
-        }
+        updateCalendar()
 
         val calendarAdapterVertical: VerticalRecyclerCalendarAdapter =
             VerticalRecyclerCalendarAdapter(
@@ -119,8 +125,7 @@ class RoleManagementFragment : Fragment() {
                                 locale = configuration.calendarLocale,
                                 date = date,
                                 format = CalendarUtils.LONG_DATE_FORMAT
-                            )
-                                ?: ""
+                            ) ?: ""
 
                         if (event != null) {
                             AlertDialog.Builder(requireContext())
@@ -145,5 +150,59 @@ class RoleManagementFragment : Fragment() {
 
         // Inflate the layout for this fragment
         return binding.root
+    }
+
+    private fun showScheduleActionBottomSheet() {
+        val bottomSheet = ScheduleActionBottomSheetDialogFragment().apply {
+            setEventChangeListener(this@RoleManagementFragment)
+        }
+        bottomSheet.show(parentFragmentManager, "ScheduleActionBottomSheet")
+    }
+
+
+    private fun updateCalendar() {
+        val savedEvents = EventRepository.getEvents() // EventRepository에서 최신 이벤트를 가져옵니다.
+
+        // 현재 년도와 달을 얻음
+        val currentCalendar = Calendar.getInstance()
+        val currentYear = currentCalendar.get(Calendar.YEAR)
+        val currentMonth = currentCalendar.get(Calendar.MONTH)
+
+        // 현재 달의 이벤트를 필터링하고 역할별로 분류
+        val (momEvents, dadEvents, sonEvents, daughterEvents) = savedEvents
+            .filter {
+                val eventCalendar = Calendar.getInstance().apply { time = it.date }
+                eventCalendar.get(Calendar.YEAR) == currentYear &&
+                        eventCalendar.get(Calendar.MONTH) == currentMonth
+            }
+            .groupBy { it.role }
+            .let { groups ->
+                listOf(
+                    groups["엄마"]?.joinToString("\n") { it.title }.orEmpty(),
+                    groups["아빠"]?.joinToString("\n") { it.title }.orEmpty(),
+                    groups["아들"]?.joinToString("\n") { it.title }.orEmpty(),
+                    groups["딸"]?.joinToString("\n") { it.title }.orEmpty()
+                )
+            }
+
+        // 각 TextView에 역할별 이벤트 표시
+        binding.textView.text = momEvents
+        binding.textView2.text = dadEvents
+        binding.textView3.text = sonEvents
+        binding.textView4.text = daughterEvents
+
+
+        eventMap.clear()
+        for (event in savedEvents) {
+            val eventDate: Int = CalendarUtils.dateStringFromFormat(
+                locale = configuration.calendarLocale,
+                date = event.date,
+                format = CalendarUtils.DB_DATE_FORMAT
+            )?.toInt() ?: continue
+            eventMap[eventDate] = event
+        }
+
+        // 달력 어댑터에 변경 알림
+        binding.calendarRecyclerView.adapter?.notifyDataSetChanged()
     }
 }

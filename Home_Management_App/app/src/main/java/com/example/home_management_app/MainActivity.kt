@@ -5,9 +5,13 @@ import android.os.Bundle
 import com.example.home_management_app.databinding.ActivityMainBinding
 import com.example.home_management_app.utilities.role.RoleManagementFragment
 
+
+
+
 class MainActivity : AppCompatActivity() {
 
     lateinit var binding : ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         binding = ActivityMainBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)

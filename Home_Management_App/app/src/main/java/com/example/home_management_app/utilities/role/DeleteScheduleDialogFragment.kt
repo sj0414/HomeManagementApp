@@ -1,113 +1,155 @@
 package com.example.home_management_app.utilities.role
 
-import android.app.Dialog
 import android.os.Bundle
-import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.CheckBox
 import android.widget.Toast
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.DialogFragment
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.tasks.await
+import androidx.recyclerview.widget.RecyclerView
+import com.example.home_management_app.databinding.FragmentDeleteScheduleBinding
+import com.example.home_management_app.model.EventRepository
+import com.example.home_management_app.model.RecyclerCalendarConfiguration
+import com.example.home_management_app.model.SimpleEvent
+import com.example.home_management_app.utilities.CalendarUtils
+import com.example.home_management_app.utilities.vertical.VerticalRecyclerCalendarAdapter
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Date
+import java.util.Locale
 
-class DeleteScheduleDialogFragment : DialogFragment() {
 
-    // ScheduleData 클래스 정의
-    data class ScheduleData(
-        var role: String? = null,
-        var specialty: Int? = null,
-        var todo: String? = null
-    )
-    private fun fetchCalendarData() {
-        val databaseRef = FirebaseDatabase.getInstance().getReference("Group/QJQ088/groupManager/Calendar")
+class DeleteScheduleFragment : DialogFragment() {
+    lateinit var binding: FragmentDeleteScheduleBinding
+    private val eventMap: HashMap<Int, SimpleEvent> = HashMap()
+    private val rdb = Firebase.database.getReference("Group").child("QJQ088")
+        .child("groupManager")
+        .child("Calendar")
+    private val selectedEvents = mutableListOf<String>()
+    private val configuration: RecyclerCalendarConfiguration =
+        RecyclerCalendarConfiguration(
+            calenderViewType = RecyclerCalendarConfiguration.CalenderViewType.VERTICAL,
+            calendarLocale = Locale.getDefault(),
+            includeMonthHeader = true
+        )
+    // 불러온 이벤트를 저장할 리스트와 선택된 이벤트 ID를 저장할 리스트
+    var eventChangeListener: com.example.home_management_app.model.OnEventChangeListener? = null
+    private val selectedEventIds = mutableListOf<Int>()
 
-        CoroutineScope(Dispatchers.IO).launch {
-            try {
-                val snapshot = databaseRef.get().await()
-                if (snapshot.exists()) {
-                    snapshot.children.forEach { yearSnapshot ->
-                        val year = yearSnapshot.key ?: return@forEach
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View? {
 
-                        yearSnapshot.children.forEach { monthSnapshot ->
-                            val month = monthSnapshot.key ?: return@forEach
+        binding = FragmentDeleteScheduleBinding.inflate(inflater, container, false)
+        val calendarRecyclerView: RecyclerView = binding.delCalendarRecyclerView
 
-                            monthSnapshot.children.forEach { daySnapshot ->
-                                val day = daySnapshot.key ?: return@forEach
 
-                                daySnapshot.children.forEach { userSnapshot ->
-                                    val userId = userSnapshot.key ?: return@forEach
-                                    val scheduleData = userSnapshot.getValue(ScheduleData::class.java)
+        val date = Date()
+        date.time = System.currentTimeMillis()
 
-                                    if (scheduleData != null) {
-                                        Log.d("FirebaseData", "Date: $year-$month-$day, User: $userId, Schedule: $scheduleData")
+        val startCal = Calendar.getInstance()
+
+        val endCal = Calendar.getInstance()
+        endCal.time = date
+        endCal.add(Calendar.MONTH, 12)
+
+        // EventRepository에서 이벤트 목록을 가져와 달력에 표시합니다.
+        val savedEvents = EventRepository.getEvents()
+        for (event in savedEvents) {
+            val eventDate: Int =
+                (CalendarUtils.dateStringFromFormat(
+                    locale = configuration.calendarLocale,
+                    date = event.date,
+                    format = CalendarUtils.DB_DATE_FORMAT
+                ) ?: "0").toInt()
+
+            eventMap[eventDate] = event
+
+
+        }
+
+        val calendarAdapterVertical: VerticalRecyclerCalendarAdapter =
+            VerticalRecyclerCalendarAdapter(
+                startDate = startCal.time,
+                endDate = endCal.time,
+                configuration = configuration,
+                eventMap = eventMap,
+                dateSelectListener = object : VerticalRecyclerCalendarAdapter.OnDateSelected {
+                    override fun onDateSelected(date: Date, event: SimpleEvent?) {
+                        val selectedDateFormat = SimpleDateFormat(CalendarUtils.LONG_DATE_FORMAT, configuration.calendarLocale)
+                        val selectedDateFormatted = selectedDateFormat.format(date)
+
+                        val eventDateFormat = SimpleDateFormat(CalendarUtils.DB_DATE_FORMAT, configuration.calendarLocale)
+
+                        val eventsOnDate = savedEvents.filter {
+                            eventDateFormat.format(it.date) == eventDateFormat.format(date)
+                        }
+
+                        val eventsText = eventsOnDate.joinToString("\n") { "${it.role} - ${it.title}" }
+
+                        binding.eventsTextView.text = if (eventsOnDate.isNotEmpty()) eventsText else "No events on this date"
+
+                        selectedEvents.clear()
+                        selectedEvents.addAll(eventsOnDate.map { savedEvents.indexOf(it).toString() })
+
+                        binding.checkboxContainer.removeAllViews() // 체크박스 컨테이너를 비웁니다.
+                        eventsOnDate.forEach { simpleEvent ->
+                            val checkBox = CheckBox(context).apply {
+                                text = "${simpleEvent.role} - ${simpleEvent.title}"
+                                setOnCheckedChangeListener { _, isChecked ->
+                                    val eventIndex = savedEvents.indexOf(simpleEvent)
+                                    if (isChecked) {
+                                        if (eventIndex !in selectedEventIds) {
+                                            selectedEventIds.add(eventIndex)
+                                        }
+                                    } else {
+                                        selectedEventIds.remove(eventIndex)
                                     }
                                 }
                             }
+                            binding.checkboxContainer.addView(checkBox)
                         }
+
                     }
-                } else {
-                    Log.d("FirebaseData", "No data available.")
+
                 }
-            } catch (e: Exception) {
-                Log.e("FirebaseData", "Error fetching data", e)
+            );
+
+        binding.buttonDeleteEvent.setOnClickListener {
+            // 선택된 이벤트들을 삭제합니다.
+            selectedEventIds.sortedDescending().forEach { index ->
+                val eventToRemove = savedEvents[index]
+                EventRepository.deleteEvent(eventToRemove)  // 이벤트를 삭제하는 함수 호출
             }
+
+            // EventRepository의 데이터를 업데이트합니다.
+            val updatedEvents = EventRepository.getEvents()
+            eventMap.clear()
+            for (event in updatedEvents) {
+                val eventDate: Int = CalendarUtils.dateStringFromFormat(
+                    locale = configuration.calendarLocale,
+                    date = event.date,
+                    format = CalendarUtils.DB_DATE_FORMAT
+                )?.toInt() ?: continue
+                eventMap[eventDate] = event
+            }
+
+            // UI 및 달력 어댑터 업데이트
+            Toast.makeText(context, "Selected events deleted", Toast.LENGTH_SHORT).show()
+            selectedEventIds.clear()
+            binding.eventsTextView.text = "No events selected"
+            binding.checkboxContainer.removeAllViews()
+            calendarAdapterVertical.notifyDataSetChanged()  // 어댑터에 데이터 변경 알림
+
+            eventChangeListener?.onEventChanged()
         }
+
+        calendarRecyclerView.adapter = calendarAdapterVertical
+        return binding.root
     }
-
-    fun newInstance(scheduleId: String?): DeleteScheduleDialogFragment? {
-        val fragment = DeleteScheduleDialogFragment()
-        val args = Bundle()
-        args.putString("scheduleId", scheduleId) // 인자로 일정 ID를 추가합니다.
-        fragment.arguments = args // 프래그먼트에 인자 설정
-        return fragment // 프래그먼트 인스턴스 반환
-    }
-
-    // 이 DialogFragment를 생성할 때 삭제할 멤버의 ID를 전달받는 것으로 가정합니다.
-    companion object {
-        fun newInstance(memberId: String): DeleteScheduleDialogFragment {
-            val args = Bundle()
-            args.putString("memberId", memberId)
-            val fragment = DeleteScheduleDialogFragment()
-            fragment.arguments = args
-            return fragment
-        }
-    }
-
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val database = FirebaseDatabase.getInstance().getReference("groupManager/Calendar")
-        val memberId = arguments?.getString("memberId")
-            ?: throw IllegalStateException("Member ID is required")
-
-        val builder = MaterialAlertDialogBuilder(requireContext())
-        builder.setMessage("선택한 멤버의 일정을 모두 삭제하시겠습니까?")
-            .setPositiveButton("삭제") { dialog, id ->
-                // 멤버 ID를 사용하여 해당 멤버의 일정을 삭제
-                memberId.let { mId ->
-                    database.child(mId).removeValue().addOnCompleteListener { task ->
-                        if (task.isSuccessful) {
-                            // 일정 삭제 성공 처리
-                            Toast.makeText(requireContext(), "일정이 삭제되었습니다.", Toast.LENGTH_SHORT).show()
-                        } else {
-                            // 일정 삭제 실패 처리
-                            Log.e("DeleteSchedule", "Failed to delete schedule: ${task.exception}")
-                            Toast.makeText(requireContext(), "일정 삭제에 실패했습니다.", Toast.LENGTH_SHORT).show()
-                        }
-                    }
-                }
-            }
-            .setNegativeButton("취소") { dialog, id ->
-                // 사용자가 취소한 경우
-                dialog.cancel()
-            }
-
-        // AlertDialog 생성 및 반환
-        return builder.create()
-    }
-
 }
+
+

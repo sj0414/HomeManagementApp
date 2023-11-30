@@ -9,11 +9,18 @@ import android.widget.Button;
 import androidx.annotation.Nullable;
 
 import com.example.home_management_app.R;
+import com.example.home_management_app.model.OnEventChangeListener;
 import com.example.home_management_app.utilities.role.AddScheduleDialogFragment;
-import com.example.home_management_app.utilities.role.DeleteScheduleDialogFragment;
+import com.example.home_management_app.utilities.role.DeleteScheduleFragment;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 public class ScheduleActionBottomSheetDialogFragment extends BottomSheetDialogFragment {
+
+    private OnEventChangeListener eventChangeListener;
+
+    public void setEventChangeListener(OnEventChangeListener eventChangeListener) {
+        this.eventChangeListener = eventChangeListener;
+    }
 
     @Nullable
     @Override
@@ -21,22 +28,29 @@ public class ScheduleActionBottomSheetDialogFragment extends BottomSheetDialogFr
         View view = inflater.inflate(R.layout.fragment_role_management_btm_floating, container, false);
 
         Button addScheduleButton = view.findViewById(R.id.addScheduleButton);
-        addScheduleButton.setOnClickListener(v -> {
-            // 여기에서 AddScheduleDialogFragment를 표시합니다.
-            AddScheduleDialogFragment addScheduleDialog = new AddScheduleDialogFragment();
-            addScheduleDialog.show(getParentFragmentManager(), "addSchedule");
+        Button deleteScheduleButton = view.findViewById(R.id.deleteScheduleButton);
+
+        addScheduleButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AddScheduleDialogFragment addScheduleDialog = new AddScheduleDialogFragment();
+                addScheduleDialog.setEventChangeListener(eventChangeListener);
+                addScheduleDialog.show(getParentFragmentManager(), "addSchedule");
+            }
         });
 
-        Button deleteScheduleButton = view.findViewById(R.id.deleteScheduleButton);
-        deleteScheduleButton.setOnClickListener(v -> {
-            //String scheduleId = ; // 삭제할 일정의 ID를 얻는 코드
-            // DeleteScheduleDialogFragment의 인스턴스를 생성하고 인자를 전달합니다.
-            //DeleteScheduleDialogFragment deleteDialogFragment = DeleteScheduleDialogFragment.newInstance(scheduleId);
-            // 프래그먼트 매니저를 사용하여 대화상자를 표시합니다.
-            //deleteDialogFragment.show(getParentFragmentManager(), "deleteSchedule");
+        deleteScheduleButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DeleteScheduleFragment deleteScheduleDialog = new DeleteScheduleFragment();
+                deleteScheduleDialog.setEventChangeListener(eventChangeListener);
+                deleteScheduleDialog.show(getParentFragmentManager(), "delSchedule");
+            }
         });
 
         return view;
     }
 }
+
+
 
