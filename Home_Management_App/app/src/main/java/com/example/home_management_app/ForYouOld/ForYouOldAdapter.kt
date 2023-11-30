@@ -1,4 +1,4 @@
-package com.example.home_management_app
+package com.example.home_management_app.ForYouOld
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter

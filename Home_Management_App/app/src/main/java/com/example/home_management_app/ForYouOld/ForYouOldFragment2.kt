@@ -1,18 +1,13 @@
-package com.example.home_management_app
+package com.example.home_management_app.ForYouOld
 
-import android.content.Intent
-import android.net.Uri
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.home_management_app.databinding.FragmentForYouOld1Binding
-import com.example.home_management_app.databinding.FragmentForYouOld2Binding
-import com.example.home_management_app.databinding.FragmentForYouOldNewsRowBinding
-import com.github.mikephil.charting.utils.Utils.init
+import com.example.home_management_app.databinding.*
 
 class ForYouOldFragment2 : Fragment() {
     lateinit var binding : FragmentForYouOld2Binding
@@ -52,8 +47,6 @@ class ForYouOldFragment2 : Fragment() {
             override fun onAnswerChanged(position: Int, answer: String) {
                 // 리스트에 답변 업데이트
                 adapter.quizList[position].answer = answer
-                if (adapter.quizList[position].a == answer)
-                    score = score + 10
             }
         }
 
@@ -62,7 +55,41 @@ class ForYouOldFragment2 : Fragment() {
         binding.recyclerView.adapter = adapter
 
         binding.submit.setOnClickListener{
-            Toast.makeText(requireContext(), score.toString(), Toast.LENGTH_SHORT).show()
+            for (quizData in adapter.quizList) {
+                if (quizData.a == quizData.answer) {
+                    score += 10
+                }
+            }
+
+            dialog()
+            //Toast.makeText(requireContext(), "Answers reset.", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun dialog() {
+        val builder = AlertDialog.Builder(requireContext())
+        val dialogBinding = FragmentForYouOldQuizDialogBinding.inflate(
+            LayoutInflater.from(requireContext())
+        )
+
+        builder.setView(dialogBinding.root)
+
+        val dialog = builder.create()
+
+        dialogBinding.score.text = score.toString()
+
+        dialogBinding.end.setOnClickListener {
+
+            // submit 버튼 클릭 시 answer 값을 초기화하고, score도 초기화
+            for (quizData in adapter.quizList) {
+                quizData.answer = ""
+            }
+            adapter.notifyDataSetChanged()
+            score = 0
+
+            dialog.dismiss()
+        }
+
+        dialog.show()
     }
 }

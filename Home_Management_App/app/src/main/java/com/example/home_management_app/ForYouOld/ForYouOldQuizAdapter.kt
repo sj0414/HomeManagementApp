@@ -1,9 +1,10 @@
-package com.example.home_management_app
+package com.example.home_management_app.ForYouOld
 
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.home_management_app.databinding.FragmentForYouOldNewsRowBinding
 import com.example.home_management_app.databinding.FragmentForYouOldQuizRowBinding
 
 class ForYouOldQuizAdapter(val quizList: ArrayList<ForYouOldQuizData>) : RecyclerView.Adapter<ForYouOldQuizAdapter.ViewHolder>() {
@@ -15,16 +16,24 @@ class ForYouOldQuizAdapter(val quizList: ArrayList<ForYouOldQuizData>) : Recycle
 
     inner class ViewHolder(val binding: FragmentForYouOldQuizRowBinding) : RecyclerView.ViewHolder(binding.root) {
         init {
-            // ViewHolder가 생성될 때 이벤트 리스너 설정
-            binding.answer.setOnKeyListener { _, _, _ ->
-                // 사용자가 EditText에 입력할 때마다 호출
-                val position = adapterPosition
-                if (position != RecyclerView.NO_POSITION) {
-                    val answer = binding.answer.text.toString()
-                    onAnswerChangedListener?.onAnswerChanged(position, answer)
+            binding.answer.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                    // 필요한 경우 로직 추가
                 }
-                false
-            }
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                    // 필요한 경우 로직 추가
+                }
+
+                override fun afterTextChanged(s: Editable?) {
+                    // EditText의 텍스트가 변경되었을 때 호출되는 메서드
+                    val position = adapterPosition
+                    if (position != RecyclerView.NO_POSITION) {
+                        val answer = s.toString()
+                        onAnswerChangedListener?.onAnswerChanged(position, answer)
+                    }
+                }
+            })
         }
     }
 
@@ -35,7 +44,7 @@ class ForYouOldQuizAdapter(val quizList: ArrayList<ForYouOldQuizData>) : Recycle
         return ViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: ForYouOldQuizAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val currentItem = quizList[position]
 
         holder.binding.question.text = currentItem.quiz

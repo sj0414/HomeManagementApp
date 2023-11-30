@@ -1,11 +1,11 @@
-package com.example.home_management_app
+package com.example.home_management_app.ForYouOld
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.example.home_management_app.ForYouOld.ForYouOldAdapter
 import com.example.home_management_app.databinding.FragmentForYouOldBinding
 import com.google.android.material.tabs.TabLayoutMediator
 

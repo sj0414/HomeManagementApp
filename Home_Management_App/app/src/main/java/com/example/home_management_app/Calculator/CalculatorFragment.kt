@@ -1,4 +1,4 @@
-package com.example.home_management_app
+package com.example.home_management_app.Calculator
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,11 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import android.app.AlertDialog
-import android.widget.RadioButton
 import android.widget.Toast
-import android.util.Log
 import android.widget.AdapterView
-import android.widget.RadioGroup
 import com.example.home_management_app.databinding.*
 import android.graphics.Color
 import com.github.mikephil.charting.charts.PieChart
