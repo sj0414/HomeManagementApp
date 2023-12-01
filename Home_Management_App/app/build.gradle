@@ -6,7 +6,7 @@ plugins {
 
 android {
     namespace 'com.example.home_management_app'
-    compileSdk 33
+    compileSdk 34
 
     buildFeatures{
         viewBinding = true
