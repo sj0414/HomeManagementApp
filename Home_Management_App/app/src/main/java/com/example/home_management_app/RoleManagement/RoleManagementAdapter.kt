@@ -1,4 +1,4 @@
-package com.example.home_management_app
+package com.example.home_management_app.RoleManagement
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -12,7 +12,7 @@ class RoleManagementAdapter(val roleList: ArrayList<RoleManagementData>) : Recyc
         //
     }
 
-    var itemClickListener:OnItemClickListener?=null
+    var itemClickListener: OnItemClickListener?=null
 
     inner class ViewHolder(val binding: FragmentRoleManagementRoleBinding) : RecyclerView.ViewHolder(binding.root) {
         val itemRecyclerView: RecyclerView = binding.taskRecyclerView

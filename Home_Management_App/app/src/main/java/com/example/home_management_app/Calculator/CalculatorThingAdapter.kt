@@ -1,4 +1,4 @@
-package com.example.home_management_app;
+package com.example.home_management_app.Calculator;
 
 import android.view.LayoutInflater
 import java.util.ArrayList;
@@ -11,7 +11,7 @@ class CalculatorThingAdapter(val thingList: ArrayList<CalculatorThingData>) : Re
         fun OnItemClick(data: CalculatorThingData, pos:Int, binding: FragmentCalculatorThingRowBinding);
     }
 
-    var itemClickListener:OnItemClickListener?=null
+    var itemClickListener: OnItemClickListener?=null
 
     inner class ViewHolder(val binding: FragmentCalculatorThingRowBinding) : RecyclerView.ViewHolder(binding.root) {
         init {
@@ -28,7 +28,7 @@ class CalculatorThingAdapter(val thingList: ArrayList<CalculatorThingData>) : Re
         return ViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: CalculatorThingAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val currentItem = thingList[position]
 
         // 뷰 홀더에 데이터를 바인딩

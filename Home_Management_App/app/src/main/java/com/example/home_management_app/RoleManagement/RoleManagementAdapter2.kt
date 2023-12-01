@@ -1,4 +1,4 @@
-package com.example.home_management_app
+package com.example.home_management_app.RoleManagement
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -10,7 +10,7 @@ class RoleManagementAdapter2(val taskList: MutableList<TaskData>) : RecyclerView
         //
     }
 
-    var itemClickListener:OnItemClickListener?=null
+    var itemClickListener: OnItemClickListener?=null
 
     inner class ViewHolder(val binding: FragmentRoleManagementItemBinding) : RecyclerView.ViewHolder(binding.root) {
         init {

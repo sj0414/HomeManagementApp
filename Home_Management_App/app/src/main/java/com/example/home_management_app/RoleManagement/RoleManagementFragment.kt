@@ -1,4 +1,4 @@
-package com.example.home_management_app
+package com.example.home_management_app.RoleManagement
 
 import android.app.AlertDialog
 import android.os.Bundle
@@ -8,8 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.home_management_app.R
 import com.example.home_management_app.databinding.*
 
 class RoleManagementFragment : Fragment() {

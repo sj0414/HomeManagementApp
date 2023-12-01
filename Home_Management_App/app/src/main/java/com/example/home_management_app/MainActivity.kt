@@ -3,6 +3,10 @@ package com.example.home_management_app
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.home_management_app.foryouadult.ForYouAdultFragment
+import com.example.home_management_app.Calculator.CalculatorFragment
+import com.example.home_management_app.Calculator.CalendarFragment
+import com.example.home_management_app.ForYouOld.ForYouOldFragment
+import com.example.home_management_app.RoleManagement.RoleManagementFragment
 import com.example.home_management_app.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -45,6 +49,7 @@ class MainActivity : AppCompatActivity() {
                     }
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.main_frm, fragment)
+                        .replace(R.id.main_frm, ForYouOldFragment())
                         .commit()
                     return@setOnItemSelectedListener true
                 }
