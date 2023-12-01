@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:fillViewport="true">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:background="@android:color/white">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="일정 추가"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:gravity="center_horizontal"
+            android:padding="16dp" />
+
+        <!-- 달력 뷰 -->
+        <CalendarView
+            android:id="@+id/calendarView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp" />
+
+        <!-- 가족 구성원 선택 버튼들, 실제 버튼 수와 레이아웃은 앱의 필요에 따라 달라질 수 있습니다. -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/btnFamilyMember1"
+                style="?attr/borderlessButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="아빠" />
+
+            <Button
+                android:id="@+id/btnFamilyMember2"
+                style="?attr/borderlessButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="엄마" />
+            <Button
+                android:id="@+id/btnFamilyMember3"
+                style="?attr/borderlessButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="아들" />
+            <Button
+                android:id="@+id/btnFamilyMember4"
+                style="?attr/borderlessButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="딸" />
+        </LinearLayout>
+
+        <!-- 중요 일정 여부를 선택하는 체크박스 -->
+        <CheckBox
+            android:id="@+id/checkBoxImportant"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="중요한 일정"
+            android:layout_marginBottom="16dp" />
+
+        <!-- 일정 내용을 입력하는 텍스트 필드 -->
+        <EditText
+            android:id="@+id/editTextScheduleContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="일정 내용을 입력하세요"
+            android:inputType="textMultiLine"
+            android:gravity="top"
+            android:minLines="4"
+            android:layout_marginBottom="16dp" />
+
+    </LinearLayout>
+</ScrollView>

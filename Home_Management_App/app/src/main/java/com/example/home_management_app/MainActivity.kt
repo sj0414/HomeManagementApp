@@ -8,11 +8,16 @@ import com.example.home_management_app.Calculator.CalendarFragment
 import com.example.home_management_app.ForYouOld.ForYouOldFragment
 import com.example.home_management_app.RoleManagement.RoleManagementFragment
 import com.example.home_management_app.databinding.ActivityMainBinding
+import com.example.home_management_app.utilities.role.RoleManagementFragment
+
+
+
 
 class MainActivity : AppCompatActivity() {
 
     lateinit var binding : ActivityMainBinding
     private var inputRole : Int = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         binding = ActivityMainBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
@@ -29,13 +34,14 @@ class MainActivity : AppCompatActivity() {
 
                 R.id.menu_calculator -> {
                     supportFragmentManager.beginTransaction()
-                        .replace(R.id.main_frm, CalculatorFragment()).commit()
+                        .replace(R.id.main_frm, CalculatorFragment())
+                        .commit()
                     return@setOnItemSelectedListener true
                 }
 
                 R.id.menu_role_management -> {
                     supportFragmentManager.beginTransaction()
-                        .replace(R.id.main_frm, RoleManagementFragment())
+                        .replace(R.id.main_frm, com.example.home_management_app.RoleManagement.RoleManagementFragment())
                         .commit()
                     return@setOnItemSelectedListener true
                 }
@@ -47,9 +53,11 @@ class MainActivity : AppCompatActivity() {
 //                        2 -> ForYouOldFragment()
                         else -> ForYouAdultFragment()
                     }
+//                    supportFragmentManager.beginTransaction()
+//                        .replace(R.id.main_frm, fragment)
+//                        .replace(R.id.main_frm, ForYouOldFragment())
                     supportFragmentManager.beginTransaction()
-                        .replace(R.id.main_frm, fragment)
-                        .replace(R.id.main_frm, ForYouOldFragment())
+                        .replace(R.id.main_frm, ForYouFragment())
                         .commit()
                     return@setOnItemSelectedListener true
                 }

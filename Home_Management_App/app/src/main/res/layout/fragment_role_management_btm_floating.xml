@@ -1,0 +1,34 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@android:color/white"
+    android:clipToPadding="true">
+
+    <Button
+        android:id="@+id/addScheduleButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="일정 추가"
+        android:drawableLeft="@android:drawable/ic_menu_add"
+        android:drawableStart="@android:drawable/ic_menu_add"
+        android:drawablePadding="8dp"
+        android:background="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true" />
+
+
+    <Button
+        android:id="@+id/deleteScheduleButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="일정 삭제"
+        android:drawableLeft="@android:drawable/ic_menu_delete"
+        android:drawableStart="@android:drawable/ic_menu_delete"
+        android:drawablePadding="8dp"
+        android:background="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true" />
+
+</LinearLayout>
