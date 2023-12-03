@@ -3,7 +3,7 @@ package com.example.home_management_app
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.home_management_app.databinding.ActivityMainBinding
-import com.example.home_management_app.utilities.role.RoleManagementFragment
+import com.example.home_management_app.Rolemanagement.role.CalendarFragment
 
 
 
@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
             when (it.itemId) {
                 R.id.menu_calendar -> {
                     supportFragmentManager.beginTransaction()
-                        .replace(R.id.main_frm, RoleManagementFragment())
+                        .replace(R.id.main_frm, CalendarFragment())
                         .commit()
                     return@setOnItemSelectedListener true
                 }
@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
 
                 R.id.menu_role_management -> {
                     supportFragmentManager.beginTransaction()
-                        .replace(R.id.main_frm, RoleManagementFragment())
+                        .replace(R.id.main_frm, CalendarFragment())
                         .commit()
                     return@setOnItemSelectedListener true
                 }

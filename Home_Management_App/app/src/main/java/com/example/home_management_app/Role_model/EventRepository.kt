@@ -1,4 +1,4 @@
-package com.example.home_management_app.model
+package com.example.home_management_app.Role_model
 
 object EventRepository {
     private val events = mutableListOf<SimpleEvent>()

@@ -1,12 +1,12 @@
-package com.example.home_management_app.utilities.vertical.adapter
+package com.example.home_management_app.Rolemanagement.vertical.adapter
 
 import android.os.Handler
 import android.os.HandlerThread
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.home_management_app.model.RecyclerCalendarConfiguration
-import com.example.home_management_app.model.RecyclerCalenderViewItem
+import com.example.home_management_app.Role_model.RecyclerCalendarConfiguration
+import com.example.home_management_app.Role_model.RecyclerCalenderViewItem
 import java.util.*
 
 

@@ -1,4 +1,4 @@
-package com.example.home_management_app.utilities.role
+package com.example.home_management_app.Rolemanagement.role
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,14 +10,14 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.home_management_app.R
 import com.example.home_management_app.databinding.FragmentRoleManagementBinding
-import com.example.home_management_app.model.EventRepository
-import com.example.home_management_app.model.OnEventChangeListener
-import com.example.home_management_app.model.RecyclerCalendarConfiguration
-import com.example.home_management_app.model.SimpleEvent
-import com.example.home_management_app.utilities.CalendarUtils
+import com.example.home_management_app.Role_model.EventRepository
+import com.example.home_management_app.Role_model.OnEventChangeListener
+import com.example.home_management_app.Role_model.RecyclerCalendarConfiguration
+import com.example.home_management_app.Role_model.SimpleEvent
+import com.example.home_management_app.Rolemanagement.CalendarUtils
 
-import com.example.home_management_app.utilities.ScheduleActionBottomSheetDialogFragment
-import com.example.home_management_app.utilities.vertical.VerticalRecyclerCalendarAdapter
+import com.example.home_management_app.Rolemanagement.ScheduleActionBottomSheetDialogFragment
+import com.example.home_management_app.Rolemanagement.vertical.VerticalRecyclerCalendarAdapter
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.database.DatabaseReference
 import java.util.Calendar
@@ -25,7 +25,7 @@ import java.util.Date
 import java.util.Locale
 import java.util.Random
 
-class RoleManagementFragment : Fragment(), OnEventChangeListener {
+class CalendarFragment : Fragment(), OnEventChangeListener {
     private val eventMap: HashMap<Int, SimpleEvent> = HashMap()
     // 받아온 데이터를 받을 리스트
     lateinit var FDB : DatabaseReference
@@ -42,8 +42,6 @@ class RoleManagementFragment : Fragment(), OnEventChangeListener {
         updateCalendar()
     }
 
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -55,7 +53,7 @@ class RoleManagementFragment : Fragment(), OnEventChangeListener {
         // 기존의 이벤트 생성 루프
         for (i in 0..30 step 3) {
             val eventCal = Calendar.getInstance()
-            eventCal.add(Calendar.DATE, i * 3)
+            eventCal.add(Calendar.DATE, i * 5)
 
             // 랜덤 이벤트와 역할을 선택
             val selectedEvent = eventList[random.nextInt(eventList.size)]
@@ -154,7 +152,7 @@ class RoleManagementFragment : Fragment(), OnEventChangeListener {
 
     private fun showScheduleActionBottomSheet() {
         val bottomSheet = ScheduleActionBottomSheetDialogFragment().apply {
-            setEventChangeListener(this@RoleManagementFragment)
+            setEventChangeListener(this@CalendarFragment)
         }
         bottomSheet.show(parentFragmentManager, "ScheduleActionBottomSheet")
     }

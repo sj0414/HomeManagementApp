@@ -1,4 +1,4 @@
-package com.example.home_management_app.utilities.vertical
+package com.example.home_management_app.Rolemanagement.vertical
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,11 +6,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.home_management_app.R
-import com.example.home_management_app.model.RecyclerCalendarConfiguration
-import com.example.home_management_app.model.RecyclerCalenderViewItem
-import com.example.home_management_app.model.SimpleEvent
-import com.example.home_management_app.utilities.CalendarUtils
-import com.example.home_management_app.utilities.vertical.adapter.RecyclerCalendarBaseAdapter
+import com.example.home_management_app.Role_model.RecyclerCalendarConfiguration
+import com.example.home_management_app.Role_model.RecyclerCalenderViewItem
+import com.example.home_management_app.Role_model.SimpleEvent
+import com.example.home_management_app.Rolemanagement.CalendarUtils
+import com.example.home_management_app.Rolemanagement.vertical.adapter.RecyclerCalendarBaseAdapter
 import java.util.*
 
 class VerticalRecyclerCalendarAdapter(

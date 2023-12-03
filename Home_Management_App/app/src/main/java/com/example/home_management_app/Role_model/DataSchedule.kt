@@ -1,4 +1,4 @@
-package com.example.home_management_app.model
+package com.example.home_management_app.Role_model
 
 import java.io.Serializable
 
