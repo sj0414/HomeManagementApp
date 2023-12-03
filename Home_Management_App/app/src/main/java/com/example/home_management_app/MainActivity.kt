@@ -1,15 +1,25 @@
 package com.example.home_management_app
 
+import android.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.home_management_app.Calculator.CalculatorFragment
+import com.example.home_management_app.Calculator.CalculatorThingAdapter
+import com.example.home_management_app.Calculator.CalculatorThingData
 import com.example.home_management_app.Calculator.CalendarFragment
 import com.example.home_management_app.ForYouOld.ForYouOldFragment
 import com.example.home_management_app.RoleManagement.RoleManagementFragment
 import com.example.home_management_app.databinding.ActivityMainBinding
+import com.example.home_management_app.databinding.FragmentCalculatorBinding
+import com.example.home_management_app.databinding.FragmentCalculatorDialog1Binding
+import com.github.mikephil.charting.utils.Utils.init
 
 class MainActivity : AppCompatActivity() {
-
     lateinit var binding : ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -58,7 +68,6 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.navigation.selectedItemId = R.id.menu_calendar
+
     }
-
-
 }

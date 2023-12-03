@@ -136,14 +136,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
-                <!--
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/pie_ex"
-                    android:layout_gravity="center"
-                    android:padding="10dp"/>
-                    -->
                 <com.github.mikephil.charting.charts.PieChart
                     android:id="@+id/chart1"
                     android:layout_width="90dp"
