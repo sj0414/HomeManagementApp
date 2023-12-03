@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import android.app.AlertDialog
 import android.widget.Toast
 import android.widget.AdapterView
+import androidx.fragment.app.viewModels
 import com.example.home_management_app.databinding.*
 import android.graphics.Color
 import com.github.mikephil.charting.charts.PieChart
@@ -21,6 +22,7 @@ class CalculatorFragment : Fragment() {
     lateinit var binding : FragmentCalculatorBinding
     // database 연결 필요
     val thingData: ArrayList<CalculatorThingData> = ArrayList()
+    //private val calViewModel: CalculatorViewModel by viewModels()
     val accountBookData: ArrayList<CalculatorAccountBookData> = ArrayList()
 
     var budget: Int = 0
@@ -47,9 +49,11 @@ class CalculatorFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentCalculatorBinding.inflate(inflater, container, false)
+
         init()
         pie1()
         pie2()
+
         return binding.root
     }
 
