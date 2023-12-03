@@ -10,28 +10,25 @@ import com.example.home_management_app.for_you_adult.ForYouAdultFragment
 import com.example.home_management_app.calculatorFragment.CalculatorFragment
 import com.example.home_management_app.calculatorFragment.CalendarFragment
 import android.app.AlertDialog
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.LinearLayoutManager
-
 import com.example.home_management_app.RoleManagement.RoleManagementFragment
 import com.example.home_management_app.data.UserData
 //import com.example.home_management_app.RoleManagement.RoleManagementFragment
 import com.example.home_management_app.databinding.ActivityMainBinding
 import com.example.home_management_app.for_you_old.ForYouOldFragment
 import com.example.home_management_app.login.LoginActivity
+import com.example.home_management_app.mypage.MyPageFragment
 import com.example.home_management_app.databinding.FragmentCalculatorBinding
 import com.example.home_management_app.databinding.FragmentCalculatorDialog1Binding
 import com.github.mikephil.charting.utils.Utils.init
-import com.example.home_management_app.mypage.MyPageFragment
-
-
 class MainActivity : AppCompatActivity(), ResetListener{
 
-class MainActivity : AppCompatActivity() {
-    lateinit var binding: ActivityMainBinding
-    private var inputRole: Int = 0
+    lateinit var binding : ActivityMainBinding
+    private var inputRole : Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -41,7 +38,7 @@ class MainActivity : AppCompatActivity() {
         inputRole = intent.getIntExtra("IntRole", 0)
         val userData = intent.getSerializableExtra("UserData") as UserData
         val groupCode = intent.getStringExtra("GroupCode")
-        Log.d("userdata", userData.toString())
+        Log.d("userdata",userData.toString())
 
 
         binding.navigation.setOnItemSelectedListener {
@@ -103,7 +100,6 @@ class MainActivity : AppCompatActivity() {
         binding.navigation.selectedItemId = R.id.menu_calendar
 
     }
-}
 
     override fun onReset() {
         val intent = Intent(this, LoginActivity::class.java)
