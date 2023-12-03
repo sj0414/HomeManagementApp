@@ -1,6 +1,6 @@
 package com.example.home_management_app.model
 
-import com.example.home_management_app.utilities.CalendarUtils
+import com.example.home_management_app.Calendar.CalendarUtils
 import java.util.*
 
 class RecyclerCalenderViewItem constructor(

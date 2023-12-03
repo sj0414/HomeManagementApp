@@ -4,7 +4,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.home_management_app.MainActivity
-import com.example.home_management_app.R
 import com.example.home_management_app.data.UserData
 import com.example.home_management_app.databinding.ActivityGroupGeneratingBinding
 import com.google.firebase.database.DatabaseReference
@@ -18,6 +17,7 @@ class GroupGeneratingActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val userData = intent.getSerializableExtra("UserData") as UserData
+        val intRole = intent.getIntExtra("IntRole",0)
         userData.let{
 
         }
@@ -27,7 +27,9 @@ class GroupGeneratingActivity : AppCompatActivity() {
 
         binding.btnConfirm.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
-            //intent.putExtra()
+            intent.putExtra("UserData",userData)
+            intent.putExtra("GroupCode",groupCode)
+            intent.putExtra("IntRole", intRole)
 
             startActivity(intent)
             finish()

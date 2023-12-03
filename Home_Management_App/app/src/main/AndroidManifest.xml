@@ -3,8 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools">
     <uses-permission android:name="android.permission.INTERNET"/>
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -16,6 +14,9 @@
         tools:targetApi="31">
         <activity
             android:name=".login.GroupGeneratingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".mypage.MyPageChangeInfoActivity"
             android:exported="false" />
         <activity
             android:name=".login.GroupRoleActivity"
@@ -30,7 +31,7 @@
             android:name=".login.GroupSelectActivity"
             android:exported="false" />
         <activity
-            android:name=".login.SignUpActivity"
+            android:name=".login.SignActivity"
             android:exported="false" />
         <activity
             android:name=".login.LoginActivity"

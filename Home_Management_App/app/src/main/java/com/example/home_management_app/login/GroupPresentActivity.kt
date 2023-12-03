@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
-import com.example.home_management_app.MainActivity
 import com.example.home_management_app.data.UserData
 import com.example.home_management_app.databinding.ActivityGroupPresentBinding
 import com.google.firebase.database.DataSnapshot
