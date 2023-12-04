@@ -51,10 +51,16 @@ class RoleManagementFragment : Fragment() {
         val selectedRoleData1 = roleData.find { it.name == "엄마" }
         val selectedRoleData2 = roleData.find { it.name == "아빠" }
         val selectedRoleData3 = roleData.find { it.name == "아들" }
+        val selectedRoleData4 = roleData.find { it.name == "딸" }
+        val selectedRoleData5 = roleData.find { it.name == "할머니" }
+        val selectedRoleData6 = roleData.find { it.name == "할아버지" }
         selectedRoleData1?.tasks?.add(TaskData("설거지"))
         selectedRoleData1?.tasks?.add(TaskData("쓰레기통 비우기"))
         selectedRoleData2?.tasks?.add(TaskData("화장실 청소"))
         selectedRoleData3?.tasks?.add(TaskData("분리수거"))
+        selectedRoleData4?.tasks?.add(TaskData("청소기 청소"))
+        selectedRoleData5?.tasks?.add(TaskData("물걸레 청소"))
+        selectedRoleData6?.tasks?.add(TaskData("휴지 교체"))
 
         binding.addRole.setOnClickListener {
             addRoleDialog()
