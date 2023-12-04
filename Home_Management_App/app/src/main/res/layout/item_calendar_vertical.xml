@@ -27,11 +27,15 @@
             android:textStyle="bold"
             tools:text="23" />
 
-        <View
-            android:id="@+id/viewCalenderItemVerticalEvent"
-            android:layout_width="4dp"
-            android:layout_height="4dp"
-            android:background="#4285F4"/>
+        <LinearLayout
+            android:id="@+id/layoutEventContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+            <!-- 동적으로 View가 추가될 부분 -->
+        </LinearLayout>
+
     </androidx.appcompat.widget.LinearLayoutCompat>
 
 </LinearLayout>

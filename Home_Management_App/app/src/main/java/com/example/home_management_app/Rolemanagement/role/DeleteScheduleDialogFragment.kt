@@ -19,7 +19,7 @@ import java.util.Locale
 
 class DeleteScheduleFragment : DialogFragment() {
     private lateinit var binding: FragmentDeleteScheduleBinding
-    private val eventMap: HashMap<Int, SimpleEvent> = HashMap()
+    private val eventMap: HashMap<Int, List<SimpleEvent>> = HashMap()
     var eventChangeListener: com.example.home_management_app.Role_model.OnEventChangeListener? = null
     private val selectedEventIds = mutableListOf<Int>()
 
@@ -54,7 +54,9 @@ class DeleteScheduleFragment : DialogFragment() {
                 date = event.date,
                 format = CalendarUtils.DB_DATE_FORMAT
             )?.toInt() ?: 0
-            eventMap[eventDate] = event
+            val eventsOnDate: MutableList<SimpleEvent> = eventMap[eventDate]?.toMutableList() ?: mutableListOf()
+            eventsOnDate.add(event)
+            eventMap[eventDate] = eventsOnDate
         }
 
         val calendarAdapterVertical: VerticalRecyclerCalendarAdapter =
@@ -64,7 +66,7 @@ class DeleteScheduleFragment : DialogFragment() {
                 configuration = configuration,
                 eventMap = eventMap,
                 dateSelectListener = object : VerticalRecyclerCalendarAdapter.OnDateSelected {
-                    override fun onDateSelected(date: Date, event: SimpleEvent?) {
+                    override fun onDateSelected(date: Date, event: List<SimpleEvent>?) {
                         displayEventsOnSelectedDate(date, savedEvents)
                     }
                 }
@@ -75,8 +77,9 @@ class DeleteScheduleFragment : DialogFragment() {
 
 
     private fun displayEventsOnSelectedDate(date: Date, savedEvents: List<SimpleEvent>) {
+        val mutableSavedEvents = savedEvents.toMutableList()
         val eventDateFormat = SimpleDateFormat(CalendarUtils.DB_DATE_FORMAT, Locale.getDefault())
-        val eventsOnDate = savedEvents.filter {
+        val eventsOnDate = mutableSavedEvents.filter {
             eventDateFormat.format(it.date) == eventDateFormat.format(date)
         }
 
@@ -84,7 +87,7 @@ class DeleteScheduleFragment : DialogFragment() {
         eventsOnDate.forEach { event ->
             val checkBox = CheckBox(context).apply {
                 text = "${event.role} - ${event.title}"
-                tag = savedEvents.indexOf(event) // Use the index as a tag for identification
+                tag = mutableSavedEvents.indexOf(event) // Use the index as a tag for identification
                 setOnCheckedChangeListener { _, isChecked ->
                     if (isChecked) {
                         selectedEventIds.add(tag as Int)
@@ -98,7 +101,9 @@ class DeleteScheduleFragment : DialogFragment() {
     }
 
     private fun deleteSelectedEvents() {
-        val eventsToDelete = selectedEventIds.map { index -> EventRepository.getEvents()[index] }
+        val eventsToDelete = selectedEventIds.map { index ->
+            EventRepository.getEvents().toMutableList()[index]
+        }
         eventsToDelete.forEach { event -> EventRepository.deleteEvent(event) }
 
         // Clear the selection and update UI

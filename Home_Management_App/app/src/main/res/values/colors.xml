@@ -8,4 +8,10 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="gray_1">#F1F3F5</color>
+
+    <color name="RoleCategorization_1">#ffc2b6</color>
+    <color name="RoleCategorization_2">#3F51B5</color>
+    <color name="RoleCategorization_3">#FFA500</color>
+    <color name="RoleCategorization_4">#DB4455</color>
+    <color name="RoleCategorization_5">#56DDA2</color>
 </resources>
