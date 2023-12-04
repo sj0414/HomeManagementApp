@@ -6,9 +6,10 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginStart="20dp"
+        android:gravity="center"
         android:text="구비 필요 용품 추가"
+        android:textStyle="bold"
+        android:textColor="@color/black"
         android:textSize="30dp"
         android:padding="5dp"/>
     <TextView

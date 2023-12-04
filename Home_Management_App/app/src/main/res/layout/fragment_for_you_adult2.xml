@@ -60,11 +60,46 @@
         <View
             android:id="@+id/sv_recipe_text"
             android:layout_width="0dp"
-            android:layout_height="200dp"
+            android:layout_height="160dp"
             android:layout_marginTop="10dp"
             app:layout_constraintStart_toStartOf="@id/guide_left"
             app:layout_constraintEnd_toEndOf="@+id/guide_right"
             app:layout_constraintTop_toBottomOf="@id/fl_recipe_youtube"/>
+        
+        <TextView
+            android:id="@+id/tv_recipe_1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            app:layout_constraintStart_toStartOf="@id/guide_left"
+            app:layout_constraintEnd_toEndOf="@id/guide_right"
+            app:layout_constraintTop_toTopOf="@id/sv_recipe_text"
+            android:text="유부초밥 위에 포인트로 더 맛있게,"/>
+
+        <TextView
+            android:id="@+id/tv_recipe_2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:text="명란마요유부초밥"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="@id/guide_left"
+            app:layout_constraintEnd_toEndOf="@id/guide_right"
+            app:layout_constraintTop_toBottomOf="@id/tv_recipe_1"/>
+
+        <TextView
+            android:id="@+id/tv_recipe_3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="소요 : 15분 인원 : 2인분\n재료 : 조림유부 8장, 명란젓 3덩이, 밥 2공기, 마요네즈 2숟가락, 맛술 1/2숟가락, 참기름 1숟가락, 와사비 적당량, 어린잎새싹"
+            app:layout_constraintStart_toStartOf="@id/guide_left"
+            app:layout_constraintEnd_toEndOf="@+id/guide_right"
+            app:layout_constraintTop_toBottomOf="@id/tv_recipe_2"/>
+
 
         <ImageView
             android:id="@+id/iv_adult_circle2"
@@ -97,6 +132,31 @@
             app:layout_constraintStart_toStartOf="@id/guide_left"
             app:layout_constraintEnd_toEndOf="@+id/guide_right"
             app:layout_constraintTop_toBottomOf="@id/tv_life_title"/>
+
+        <TextView
+            android:id="@+id/tv_tip_1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="화장실 악취 없애기"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintStart_toStartOf="@id/guide_left"
+            app:layout_constraintEnd_toEndOf="@id/guide_right"
+            app:layout_constraintTop_toBottomOf="@id/tv_life_title"/>
+
+        <TextView
+            android:id="@+id/tv_tip_2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="양치 후 주기적으로 양치물을 변기통에 뱉고\n10분 후 물을 내리면 화장실에서 악취가 사라진다."
+            app:layout_constraintStart_toStartOf="@id/guide_left"
+            app:layout_constraintEnd_toEndOf="@id/guide_right"
+            app:layout_constraintTop_toBottomOf="@id/tv_tip_1"/>
+
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

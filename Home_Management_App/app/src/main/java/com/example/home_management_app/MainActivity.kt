@@ -4,17 +4,10 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import androidx.core.os.bundleOf
 import com.example.ForYouTeenFragment
+import com.example.home_management_app.Calendar.role.CalendarFragment
 import com.example.home_management_app.for_you_adult.ForYouAdultFragment
 import com.example.home_management_app.calculatorFragment.CalculatorFragment
-import com.example.home_management_app.calculatorFragment.CalendarFragment
-import android.app.AlertDialog
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import androidx.core.content.ContentProviderCompat.requireContext
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.home_management_app.RoleManagement.RoleManagementFragment
 import com.example.home_management_app.data.UserData
 //import com.example.home_management_app.RoleManagement.RoleManagementFragment
@@ -22,20 +15,21 @@ import com.example.home_management_app.databinding.ActivityMainBinding
 import com.example.home_management_app.for_you_old.ForYouOldFragment
 import com.example.home_management_app.login.LoginActivity
 import com.example.home_management_app.mypage.MyPageFragment
-import com.example.home_management_app.databinding.FragmentCalculatorBinding
-import com.example.home_management_app.databinding.FragmentCalculatorDialog1Binding
-import com.github.mikephil.charting.utils.Utils.init
+
 class MainActivity : AppCompatActivity(), ResetListener{
 
     lateinit var binding : ActivityMainBinding
     private var inputRole : Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        inputRole = intent.getIntExtra("IntRole", 0)
+        setThemeBasedOnxUserInput(inputRole)
         binding = ActivityMainBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
+
+
         setContentView(binding.root)
 
-        inputRole = intent.getIntExtra("IntRole", 0)
         val userData = intent.getSerializableExtra("UserData") as UserData
         val groupCode = intent.getStringExtra("GroupCode")
         Log.d("userdata",userData.toString())
@@ -58,8 +52,15 @@ class MainActivity : AppCompatActivity(), ResetListener{
                 }
 
                 R.id.menu_role_management -> {
+                    val roleManagement = RoleManagementFragment().apply {
+                        val bundle = Bundle()
+                        bundle.putSerializable("UserData", userData)
+                        bundle.putString("GroupCode", groupCode)
+                        bundle.putInt("IntRole", inputRole)
+                        arguments = bundle
+                    }
                     supportFragmentManager.beginTransaction()
-                        .replace(R.id.main_frm, RoleManagementFragment())
+                        .replace(R.id.main_frm, roleManagement)
                         .commit()
                     return@setOnItemSelectedListener true
                 }
@@ -101,10 +102,20 @@ class MainActivity : AppCompatActivity(), ResetListener{
 
     }
 
+    private fun setThemeBasedOnxUserInput(inputRole: Int) {
+        when (inputRole) {
+            0 -> setTheme(R.style.Theme_App_Teen)
+            1 -> setTheme(R.style.Theme_App_Adult)
+            2 -> setTheme(R.style.Theme_App_Old)
+            // 기타 숫자에 따른 테마 설정
+        }
+    }
+
+
     override fun onReset() {
         val intent = Intent(this, LoginActivity::class.java)
         startActivity(intent)
-        finish()  // 현재 MainActivity 종료
+        finish()
     }
 
 

@@ -1,6 +1,7 @@
 package com.example.home_management_app.for_you_adult
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -37,12 +38,11 @@ class ForYouAdult2Fragment : Fragment() {
             val doc = Jsoup.connect(url).get() // 웹 페이지 로드
 
             // 'yt-core-attributed-string--link-inherit-color' 클래스를 가진 모든 span 태그 선택
-            val spans = doc.select("span.yt-core-attributed-string--link-inherit-color")
+            val spans = doc.select("span.yt-core-attributed-string yt-core-attributed-string--white-space-pre-wrap")
 
-            for (span in spans) {
-                // 각 span 태그의 텍스트 내용 추출
-                println(span.text())
-            }
+            Log.d("span",spans.toString())
+            binding.tvRecipeTitle.text = spans.text()
+
         } catch (e: Exception) {
             e.printStackTrace()
         }

@@ -2,15 +2,20 @@ package com.example.home_management_app.RoleManagement
 
 import android.app.AlertDialog
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Button
+import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.home_management_app.R
 import com.example.home_management_app.databinding.*
+import com.example.home_management_app.databinding.FragmentRoleManagementBinding
 
 class RoleManagementFragment : Fragment() {
     lateinit var binding : FragmentRoleManagementBinding
@@ -29,9 +34,11 @@ class RoleManagementFragment : Fragment() {
     ): View? {
         binding = FragmentRoleManagementBinding.inflate(inflater, container, false)
         init()
+
         binding.roleRecyclerView.adapter = adapter
         return binding.root
     }
+
 
     fun init() {
         // database 연결 필요
