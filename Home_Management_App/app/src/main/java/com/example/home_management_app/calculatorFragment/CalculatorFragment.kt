@@ -7,11 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import android.app.AlertDialog
+import android.app.Dialog
 import android.widget.Toast
 import android.widget.AdapterView
 import com.example.home_management_app.databinding.*
 import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.util.Log
+import android.view.Gravity
 import com.example.home_management_app.data.UserData
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.charts.PieChart
@@ -27,6 +30,7 @@ class CalculatorFragment : Fragment() {
     lateinit var binding : FragmentCalculatorBinding
     // database 연결 필요
     val thingData: ArrayList<CalculatorThingData> = ArrayList()
+    private var dialog : Dialog? = null
     //private val calViewModel: CalculatorViewModel by viewModels()
     val accountBookData: ArrayList<CalculatorAccountBookData> = ArrayList()
 
@@ -68,19 +72,10 @@ class CalculatorFragment : Fragment() {
     }
 
     private fun initChart() {
-        // 차트 설정 코드
-        setupPieChart()
-
-        // 차트에 애니메이션 적용
-        //binding.chart1.animateY(1500, Easing.EaseInOutQuad) // Y축을 기준으로 회전하는 애니메이션
-        // 혹은
-         binding.chart1.animateX(1500, Easing.EaseInOutQuad) // X축을 기준으로 회전하는 애니메이션
+        binding.chart2.animateY(1500, Easing.EaseInOutQuad) // Y축을 기준으로 회전하는 애니메이션
+        binding.chart1.animateX(1500, Easing.EaseInOutQuad) // X축을 기준으로 회전하는 애니메이션
     }
 
-    private fun setupPieChart() {
-        // 차트 설정
-        // 예: 데이터 설정, 스타일 지정 등
-    }
     fun init() {
         // database 연결
         thingData.add(CalculatorThingData("물품", "작성자", false, View.INVISIBLE))
@@ -132,16 +127,20 @@ class CalculatorFragment : Fragment() {
 
     private fun addItemDialog1() {
         val builder = AlertDialog.Builder(requireContext())
-        val dialogBinding = FragmentCalculatorDialog1Binding.inflate(
-            LayoutInflater.from(requireContext())
-        )
+        val dialogBinding = FragmentCalculatorDialog1Binding.inflate(layoutInflater)
 
         val thingText = dialogBinding.thingText
         val buttonAdd = dialogBinding.calDialogFin1
+        val buttonCancel = dialogBinding.calDialogFin2
 
         builder.setView(dialogBinding.root)
 
-        val dialog = builder.create()
+        dialog = builder.setView(dialogBinding.root).show()
+
+        dialog?.window?.setLayout(900, ViewGroup.LayoutParams.WRAP_CONTENT)
+        dialog?.window?.setGravity(Gravity.CENTER)
+        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
 
         // 다이얼로그의 "추가" 버튼 클릭 시
         buttonAdd.setOnClickListener {
@@ -152,24 +151,30 @@ class CalculatorFragment : Fragment() {
             }
 
             adapter.notifyDataSetChanged()
-
-            dialog.dismiss()
+            initChart()
+            dialog?.dismiss()
         }
 
-        dialog.show()
+        buttonCancel.setOnClickListener {
+            initChart()
+            dialog?.dismiss()
+        }
+
+        dialog?.show()
     }
     private fun addItemDialog2() {
         val builder = AlertDialog.Builder(requireContext())
-        val dialogBinding = FragmentCalculatorDialog2Binding.inflate(
-            LayoutInflater.from(requireContext())
-        )
+        val dialogBinding = FragmentCalculatorDialog2Binding.inflate(layoutInflater)
 
         val budgetText = dialogBinding.budgetText
-        val buttonAdd = dialogBinding.calDialogFin2
+        val buttonAdd = dialogBinding.calDialogFin3
+        val buttonCancel = dialogBinding.calDialogFin4
 
-        builder.setView(dialogBinding.root)
+        dialog = builder.setView(dialogBinding.root).show()
 
-        val dialog = builder.create()
+        dialog?.window?.setLayout(900, ViewGroup.LayoutParams.WRAP_CONTENT)
+        dialog?.window?.setGravity(Gravity.CENTER)
+        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
         // 다이얼로그의 "추가" 버튼 클릭 시
         buttonAdd.setOnClickListener {
@@ -184,14 +189,18 @@ class CalculatorFragment : Fragment() {
             if (budget1 != null) {
                 budget = budget1
                 binding.budget.text = budgetString
-                dialog.dismiss()
+                dialog?.dismiss()
             } else {
                 Toast.makeText(requireContext(), "유효한 숫자를 입력하세요.", Toast.LENGTH_SHORT).show()
             }
 
+            initChart()
         }
 
-        dialog.show()
+        buttonCancel.setOnClickListener {
+            initChart()
+            dialog?.dismiss()
+        }
     }
 
     inner class CustomOnItemSelectedListener : AdapterView.OnItemSelectedListener {
@@ -204,27 +213,24 @@ class CalculatorFragment : Fragment() {
     }
     private fun addItemDialog3() {
         val builder = AlertDialog.Builder(requireContext())
-        val dialogBinding = FragmentCalculatorDialog3Binding.inflate(
-            LayoutInflater.from(requireContext())
-        )
+        val dialogBinding = FragmentCalculatorDialog3Binding.inflate(layoutInflater)
 
         val expenditureText = dialogBinding.expenditureText1
         dialogBinding.spinner.onItemSelectedListener = CustomOnItemSelectedListener()
         //val typeRadioGroup = dialogBinding.typeRadioGroup
         val detailText = dialogBinding.expenditureText2
-        val buttonAdd = dialogBinding.calDialogFin3
+        val buttonAdd = dialogBinding.calDialogFin5
+        val buttonCancel = dialogBinding.calDialogFin6
 
-        builder.setView(dialogBinding.root)
+        dialog = builder.setView(dialogBinding.root).show()
 
-        val dialog = builder.create()
+        dialog?.window?.setLayout(900, ViewGroup.LayoutParams.WRAP_CONTENT)
+        dialog?.window?.setGravity(Gravity.CENTER)
+        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
         // 다이얼로그의 "추가" 버튼 클릭 시
         buttonAdd.setOnClickListener {
             val expenditureString = expenditureText.text.toString()
-            //val typeId = typeRadioGroup.checkedRadioButtonId
-            //val typeButton: RadioButton? = dialogBinding.root.findViewById(typeId)
-            //val type = typeButton?.text?.toString()
-            //val type = typeButton?.takeIf { it.isChecked }?.text?.toString()
             val detail = detailText.text.toString()
 
             val expenditure: Int? = try {
@@ -271,15 +277,18 @@ class CalculatorFragment : Fragment() {
                 binding.use8.text = String.format("%.2f", v8)
 
                 pie2()
+                initChart()
+                dialog?.dismiss()
 
-                dialog.dismiss()
             } else {
                 Toast.makeText(requireContext(), "유효한 값을 입력하세요.", Toast.LENGTH_SHORT).show()
             }
 
-        }
+            buttonCancel.setOnClickListener {
+                dialog?.dismiss()
+            }
 
-        dialog.show()
+        }
     }
 
     private fun pie1() {

@@ -162,9 +162,7 @@ class RoleManagementFragment : Fragment() {
 
     private fun deleteRoleDialog() {
         val builder = AlertDialog.Builder(requireContext())
-        val dialogBinding = FragmentRoleManagementDialog2Binding.inflate(
-            LayoutInflater.from(requireContext())
-        )
+        val dialogBinding = FragmentRoleManagementDialog2Binding.inflate(layoutInflater)
 
         role = dialogBinding.spinner1.selectedItem?.toString() ?: "엄마"
         dialogBinding.spinner1.onItemSelectedListener = CustomOnItemSelectedListener1()
@@ -182,9 +180,11 @@ class RoleManagementFragment : Fragment() {
         tasksAdapter.notifyDataSetChanged()
         dialogBinding.spinner2.onItemSelectedListener = CustomOnItemSelectedListener2()
 
-        builder.setView(dialogBinding.root)
+        dialog = builder.setView(dialogBinding.root).show()
+        dialog?.window?.setLayout(900, ViewGroup.LayoutParams.WRAP_CONTENT)
+        dialog?.window?.setGravity(Gravity.CENTER)
+        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
-        val dialog = builder.create()
 
         // 다이얼로그의 "완료" 버튼 클릭 시
         dialogBinding.roleDialogFin2.setOnClickListener {
@@ -193,9 +193,11 @@ class RoleManagementFragment : Fragment() {
 
             adapter.notifyDataSetChanged()
             itemAdapter.setData(selectedRoleData?.tasks ?: emptyList())
-            dialog.dismiss()
+            dialog?.dismiss()
         }
 
-        dialog.show()
+        dialogBinding.buttonCancel.setOnClickListener {
+            dialog?.dismiss()
+        }
     }
 }

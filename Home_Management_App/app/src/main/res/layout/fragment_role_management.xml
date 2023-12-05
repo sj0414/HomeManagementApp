@@ -29,18 +29,24 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="20dp"/>
         </FrameLayout>
-        <ImageView
+        <View
+            android:layout_width="70dp"
+            android:layout_height="match_parent"/>
+        <Button
             android:id="@+id/addRole"
-            android:layout_width="100dp"
-            android:layout_height="30dp"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:text="추가"
+            android:layout_marginRight="10dp"
             android:layout_gravity="center"
-            android:src="@drawable/add"/>
-        <ImageView
+            android:background="@drawable/button_custom"/>
+        <Button
             android:id="@+id/deleteRole"
-            android:layout_width="100dp"
-            android:layout_height="30dp"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:text="삭제"
             android:layout_gravity="center"
-            android:src="@drawable/minus"/>
+            android:background="@drawable/button_custom"/>
     </LinearLayout>
 
     <FrameLayout
