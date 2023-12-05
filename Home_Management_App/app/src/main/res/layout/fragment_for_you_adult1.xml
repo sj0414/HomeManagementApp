@@ -14,5 +14,22 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="가정통신문 내용"
-        android:padding="16dp" />
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:padding="20dp" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp">
+
+        <TextView
+            android:id="@+id/tv_school_info"
+            android:text="공지 null"
+            android:layout_width="match_parent"
+            android:textSize="15sp"
+            android:layout_height="wrap_content"/>
+
+    </ScrollView>
 </LinearLayout>

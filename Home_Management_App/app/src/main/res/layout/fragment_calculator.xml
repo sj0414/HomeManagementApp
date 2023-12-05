@@ -22,6 +22,7 @@
             android:layout_height="wrap_content"
             android:text="가계부"
             android:textSize="30dp"
+            android:textColor="@color/black"
             android:textStyle="bold"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="20dp"/>
@@ -631,6 +632,7 @@
             android:layout_height="wrap_content"
             android:text="구비 필요 용품"
             android:textSize="30dp"
+            android:textColor="@color/black"
             android:textStyle="bold"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="20dp"/>

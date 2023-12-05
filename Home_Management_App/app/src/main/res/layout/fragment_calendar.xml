@@ -80,6 +80,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="TODAY"
+                android:textColor="@color/black"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@+id/textView"
@@ -96,6 +97,7 @@
                 android:text="IMPORTANT"
                 android:textSize="24sp"
                 android:textStyle="bold"
+                android:textColor="@color/black"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.05"
@@ -137,6 +139,7 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="5dp"
                 android:src="@drawable/calendar_circle_background"
+                app:layout_constraintBottom_toBottomOf="@id/textView5"
                 app:layout_constraintStart_toStartOf="parent"
                 tools:layout_editor_absoluteY="-2dp" />
 
