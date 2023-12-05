@@ -11,11 +11,17 @@ import android.widget.Toast
 import android.widget.AdapterView
 import com.example.home_management_app.databinding.*
 import android.graphics.Color
+import android.util.Log
+import com.example.home_management_app.data.UserData
+import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.components.Legend
+import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
+import com.github.mikephil.charting.highlight.Highlight
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener
 
 class CalculatorFragment : Fragment() {
     lateinit var binding : FragmentCalculatorBinding
@@ -42,6 +48,7 @@ class CalculatorFragment : Fragment() {
     )
 
     lateinit var adapter: CalculatorThingAdapter
+    private var isZoomed = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -94,8 +101,10 @@ class CalculatorFragment : Fragment() {
         // 다이얼로그의 "추가" 버튼 클릭 시
         buttonAdd.setOnClickListener {
             val newThing = thingText.text.toString()
-            // database 연결 필요
-            thingData.add(CalculatorThingData(newThing, "사용자", false, View.VISIBLE))
+            arguments?.getSerializable("UserData").let { data ->
+                val userData = data as UserData
+                thingData.add(CalculatorThingData(newThing, userData.role, false, View.VISIBLE))
+            }
 
             adapter.notifyDataSetChanged()
 
@@ -305,6 +314,22 @@ class CalculatorFragment : Fragment() {
         pieChart.setCenterText("")
         val legend: Legend = pieChart.legend
         legend.isEnabled = false
+
+
+
+        pieChart.setOnChartValueSelectedListener(object : OnChartValueSelectedListener {
+            override fun onValueSelected(e: Entry?, h: Highlight?) {
+                // 이곳에서 선택된 항목에 대한 확대 또는 다른 액션을 수행합니다.
+                pieChart.animateY(1400, Easing.EaseInOutQuad)
+                // 선택된 항목을 중심으로 확대할 수 있습니다.
+                // 예를 들면, 항목의 위치에 따라 pieChart를 회전시키는 등의 동작을 추가할 수 있습니다.
+            }
+
+            override fun onNothingSelected() {
+                // 아무것도 선택되지 않았을 때의 처리
+            }
+        })
+
 
         pieChart.invalidate()
     }

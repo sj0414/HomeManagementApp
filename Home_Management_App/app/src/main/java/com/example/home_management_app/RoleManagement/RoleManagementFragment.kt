@@ -1,8 +1,12 @@
 package com.example.home_management_app.RoleManagement
 
 import android.app.AlertDialog
+import android.app.Dialog
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
+import android.view.Gravity
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -21,6 +25,7 @@ class RoleManagementFragment : Fragment() {
     lateinit var binding : FragmentRoleManagementBinding
     // database 연결 필요
     val roleData: ArrayList<RoleManagementData> = ArrayList()
+    private var dialog : Dialog? = null
 
     lateinit var role: String
     lateinit var task: String
@@ -87,16 +92,15 @@ class RoleManagementFragment : Fragment() {
     }
     private fun addRoleDialog() {
         val builder = AlertDialog.Builder(requireContext())
-        val dialogBinding = FragmentRoleManagementDialogBinding.inflate(
-            LayoutInflater.from(requireContext())
-        )
-
+        val dialogBinding = FragmentRoleManagementDialogBinding.inflate(layoutInflater)
         dialogBinding.spinner.onItemSelectedListener = CustomOnItemSelectedListener1()
         val description = dialogBinding.roleText
 
-        builder.setView(dialogBinding.root)
+        dialog = builder.setView(dialogBinding.root).show()
 
-        val dialog = builder.create()
+        dialog?.window?.setLayout(900, ViewGroup.LayoutParams.WRAP_CONTENT)
+        dialog?.window?.setGravity(Gravity.CENTER)
+        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
         // 다이얼로그의 "추가" 버튼 클릭 시
         dialogBinding.roleDialogFin.setOnClickListener {
@@ -108,10 +112,13 @@ class RoleManagementFragment : Fragment() {
 
             adapter.notifyDataSetChanged()
             itemAdapter.setData(selectedRoleData?.tasks ?: emptyList())
-            dialog.dismiss()
+            dialog?.dismiss()
+
         }
 
-        dialog.show()
+        dialogBinding.cancelBtn.setOnClickListener {
+            dialog?.dismiss()
+        }
     }
 
     private fun deleteRoleDialog() {

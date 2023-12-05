@@ -45,8 +45,13 @@ class MainActivity : AppCompatActivity(), ResetListener{
                 }
 
                 R.id.menu_calculator -> {
+                    val calculatorFragment = CalculatorFragment().apply {
+                        val bundle = Bundle()
+                        bundle.putSerializable("UserData", userData)
+                        arguments = bundle
+                    }
                     supportFragmentManager.beginTransaction()
-                        .replace(R.id.main_frm, CalculatorFragment())
+                        .replace(R.id.main_frm, calculatorFragment)
                         .commit()
                     return@setOnItemSelectedListener true
                 }

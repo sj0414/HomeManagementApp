@@ -8,13 +8,15 @@
     android:layout_marginHorizontal="10dp">
     <TextView
         android:id="@+id/thing"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:text="물품"
         android:layout_weight="2"/>
     <FrameLayout
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginRight="30dp"
         android:layout_weight="2">
         <ImageView
             android:id="@+id/calculator_roll_bg"
@@ -30,12 +32,13 @@
             android:gravity="center"
             android:layout_gravity="center"/>
     </FrameLayout>
+
     <CheckBox
         android:id="@+id/thingCheckbox"
-        android:checked="false"
-        android:visibility="visible"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="2"/>
+        android:layout_weight="1"
+        android:checked="false"
+        android:visibility="visible" />
 
 </LinearLayout>
