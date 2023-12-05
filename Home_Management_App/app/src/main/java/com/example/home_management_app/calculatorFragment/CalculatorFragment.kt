@@ -30,7 +30,7 @@ class CalculatorFragment : Fragment() {
     //private val calViewModel: CalculatorViewModel by viewModels()
     val accountBookData: ArrayList<CalculatorAccountBookData> = ArrayList()
 
-    var budget: Int = 0
+    var budget: Int = 5000000
     var total: Int = 0
     var left: Int = 0
     var percent: Double = 0.0
@@ -48,7 +48,6 @@ class CalculatorFragment : Fragment() {
     )
 
     lateinit var adapter: CalculatorThingAdapter
-    private var isZoomed = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -63,6 +62,25 @@ class CalculatorFragment : Fragment() {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initChart()
+    }
+
+    private fun initChart() {
+        // 차트 설정 코드
+        setupPieChart()
+
+        // 차트에 애니메이션 적용
+        //binding.chart1.animateY(1500, Easing.EaseInOutQuad) // Y축을 기준으로 회전하는 애니메이션
+        // 혹은
+         binding.chart1.animateX(1500, Easing.EaseInOutQuad) // X축을 기준으로 회전하는 애니메이션
+    }
+
+    private fun setupPieChart() {
+        // 차트 설정
+        // 예: 데이터 설정, 스타일 지정 등
+    }
     fun init() {
         // database 연결
         thingData.add(CalculatorThingData("물품", "작성자", false, View.INVISIBLE))
@@ -314,22 +332,6 @@ class CalculatorFragment : Fragment() {
         pieChart.setCenterText("")
         val legend: Legend = pieChart.legend
         legend.isEnabled = false
-
-
-
-        pieChart.setOnChartValueSelectedListener(object : OnChartValueSelectedListener {
-            override fun onValueSelected(e: Entry?, h: Highlight?) {
-                // 이곳에서 선택된 항목에 대한 확대 또는 다른 액션을 수행합니다.
-                pieChart.animateY(1400, Easing.EaseInOutQuad)
-                // 선택된 항목을 중심으로 확대할 수 있습니다.
-                // 예를 들면, 항목의 위치에 따라 pieChart를 회전시키는 등의 동작을 추가할 수 있습니다.
-            }
-
-            override fun onNothingSelected() {
-                // 아무것도 선택되지 않았을 때의 처리
-            }
-        })
-
 
         pieChart.invalidate()
     }

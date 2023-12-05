@@ -66,7 +66,7 @@ class MainActivity : AppCompatActivity(), ResetListener{
                         arguments = bundle
                     }
                     supportFragmentManager.beginTransaction()
-                        .replace(R.id.main_frm, CalendarFragment())
+                        .replace(R.id.main_frm, roleManagement)
                         .commit()
                     return@setOnItemSelectedListener true
                 }
