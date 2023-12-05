@@ -1,4 +1,4 @@
-package com.example.home_management_app.Rolemanagement.role
+package com.example.home_management_app.Calendar.role
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,14 +9,14 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.home_management_app.R
-import com.example.home_management_app.databinding.FragmentRoleManagementBinding
 import com.example.home_management_app.Role_model.EventRepository
 import com.example.home_management_app.Role_model.OnEventChangeListener
 import com.example.home_management_app.Role_model.RecyclerCalendarConfiguration
 import com.example.home_management_app.Role_model.SimpleEvent
-import com.example.home_management_app.Rolemanagement.CalendarUtils
-import com.example.home_management_app.Rolemanagement.ScheduleActionBottomSheetDialogFragment
-import com.example.home_management_app.Rolemanagement.vertical.VerticalRecyclerCalendarAdapter
+import com.example.home_management_app.Calendar.CalendarUtils
+import com.example.home_management_app.Calendar.ScheduleActionBottomSheetDialogFragment
+import com.example.home_management_app.Calendar.vertical.VerticalRecyclerCalendarAdapter
+import com.example.home_management_app.databinding.FragmentRoleManagementBinding
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.database.DatabaseReference
 import java.util.Calendar

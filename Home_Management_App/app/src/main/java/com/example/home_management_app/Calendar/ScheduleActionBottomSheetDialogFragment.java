@@ -1,4 +1,4 @@
-package com.example.home_management_app.Rolemanagement;
+package com.example.home_management_app.Calendar;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,8 +10,8 @@ import androidx.annotation.Nullable;
 
 import com.example.home_management_app.R;
 import com.example.home_management_app.Role_model.OnEventChangeListener;
-import com.example.home_management_app.Rolemanagement.role.AddScheduleDialogFragment;
-import com.example.home_management_app.Rolemanagement.role.DeleteScheduleFragment;
+import com.example.home_management_app.Calendar.role.AddScheduleDialogFragment;
+import com.example.home_management_app.Calendar.role.DeleteScheduleFragment;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 public class ScheduleActionBottomSheetDialogFragment extends BottomSheetDialogFragment {

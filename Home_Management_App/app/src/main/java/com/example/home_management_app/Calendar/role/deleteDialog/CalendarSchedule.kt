@@ -1,4 +1,4 @@
-package com.example.home_management_app.Rolemanagement.role.deleteDialog
+package com.example.home_management_app.Calendar.role.deleteDialog
 
 import android.view.LayoutInflater
 import android.view.View

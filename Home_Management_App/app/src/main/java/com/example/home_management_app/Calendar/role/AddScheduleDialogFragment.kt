@@ -1,4 +1,4 @@
-package com.example.home_management_app.Rolemanagement.role
+package com.example.home_management_app.Calendar.role
 
 import android.app.Dialog
 import android.os.Bundle

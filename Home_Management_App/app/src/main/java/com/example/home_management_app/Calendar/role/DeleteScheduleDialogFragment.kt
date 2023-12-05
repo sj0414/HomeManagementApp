@@ -1,4 +1,4 @@
-package com.example.home_management_app.Rolemanagement.role
+package com.example.home_management_app.Calendar.role
 
 import android.app.Dialog
 import android.os.Bundle
@@ -9,8 +9,8 @@ import com.example.home_management_app.databinding.FragmentDeleteScheduleBinding
 import com.example.home_management_app.Role_model.EventRepository
 import com.example.home_management_app.Role_model.RecyclerCalendarConfiguration
 import com.example.home_management_app.Role_model.SimpleEvent
-import com.example.home_management_app.Rolemanagement.CalendarUtils
-import com.example.home_management_app.Rolemanagement.vertical.VerticalRecyclerCalendarAdapter
+import com.example.home_management_app.Calendar.CalendarUtils
+import com.example.home_management_app.Calendar.vertical.VerticalRecyclerCalendarAdapter
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import java.text.SimpleDateFormat
 import java.util.Calendar

@@ -1,4 +1,4 @@
-package com.example.home_management_app.Rolemanagement.vertical
+package com.example.home_management_app.Calendar.vertical
 
 import android.content.Context
 import android.util.TypedValue
@@ -13,8 +13,8 @@ import com.example.home_management_app.R
 import com.example.home_management_app.Role_model.RecyclerCalendarConfiguration
 import com.example.home_management_app.Role_model.RecyclerCalenderViewItem
 import com.example.home_management_app.Role_model.SimpleEvent
-import com.example.home_management_app.Rolemanagement.CalendarUtils
-import com.example.home_management_app.Rolemanagement.vertical.adapter.RecyclerCalendarBaseAdapter
+import com.example.home_management_app.Calendar.CalendarUtils
+import com.example.home_management_app.Calendar.vertical.adapter.RecyclerCalendarBaseAdapter
 import java.util.*
 import kotlin.collections.HashMap
 

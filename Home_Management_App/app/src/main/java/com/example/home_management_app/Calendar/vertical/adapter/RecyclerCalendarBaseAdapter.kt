@@ -1,4 +1,4 @@
-package com.example.home_management_app.Rolemanagement.vertical.adapter
+package com.example.home_management_app.Calendar.vertical.adapter
 
 import android.os.Handler
 import android.os.HandlerThread
