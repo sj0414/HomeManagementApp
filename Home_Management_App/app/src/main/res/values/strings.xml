@@ -28,6 +28,7 @@
     <color name="colorIcons">#FFFFFF</color>
     <color name="colorDivider">#BDBDBD</color>
 
+
     <string name="month_calendar">Month Calendar</string>
     <string name="page_month_calendar">Page Calendar</string>
     <string name="simple_calendar">Simple Calendar</string>

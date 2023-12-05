@@ -9,7 +9,7 @@ import android.widget.Button;
 import androidx.annotation.Nullable;
 
 import com.example.home_management_app.R;
-import com.example.home_management_app.model.OnEventChangeListener;
+import com.example.home_management_app.Role_model.OnEventChangeListener;
 import com.example.home_management_app.Calendar.role.AddScheduleDialogFragment;
 import com.example.home_management_app.Calendar.role.DeleteScheduleFragment;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;

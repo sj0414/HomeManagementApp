@@ -9,10 +9,10 @@ import android.widget.EditText
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import com.example.home_management_app.R
-import com.example.home_management_app.model.EventRepository
-import com.example.home_management_app.model.SimpleEvent
+import com.example.home_management_app.Role_model.EventRepository
+import com.example.home_management_app.Role_model.SimpleEvent
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.example.home_management_app.model.OnEventChangeListener
+import com.example.home_management_app.Role_model.OnEventChangeListener
 import java.util.Calendar
 
 
@@ -48,8 +48,6 @@ class AddScheduleDialogFragment : DialogFragment() {
             selectedDate = Calendar.getInstance().apply {
                 set(year, month, dayOfMonth)
             }
-
-
         }
 
         builder.setView(view)
@@ -67,7 +65,6 @@ class AddScheduleDialogFragment : DialogFragment() {
             .setNegativeButton("취소") { dialog, _ ->
                 dialog.cancel()
             }
-
 
         return builder.create()
     }

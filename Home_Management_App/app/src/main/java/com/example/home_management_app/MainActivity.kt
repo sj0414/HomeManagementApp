@@ -16,6 +16,7 @@ import com.example.home_management_app.for_you_old.ForYouOldFragment
 import com.example.home_management_app.login.LoginActivity
 import com.example.home_management_app.mypage.MyPageFragment
 
+
 class MainActivity : AppCompatActivity(), ResetListener{
 
     lateinit var binding : ActivityMainBinding
@@ -65,7 +66,7 @@ class MainActivity : AppCompatActivity(), ResetListener{
                         arguments = bundle
                     }
                     supportFragmentManager.beginTransaction()
-                        .replace(R.id.main_frm, roleManagement)
+                        .replace(R.id.main_frm, CalendarFragment())
                         .commit()
                     return@setOnItemSelectedListener true
                 }

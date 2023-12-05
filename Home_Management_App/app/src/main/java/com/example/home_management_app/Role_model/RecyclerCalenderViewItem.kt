@@ -1,4 +1,4 @@
-package com.example.home_management_app.model
+package com.example.home_management_app.Role_model
 
 import com.example.home_management_app.Calendar.CalendarUtils
 import java.util.*

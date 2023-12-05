@@ -16,5 +16,9 @@
     <color name="theme_old">#9CCC65</color>
     <color name="main_color">#000000</color>
     <color name="red">#B22222</color>
-
+    <color name="RoleCategorization_1">#ffc2b6</color>
+    <color name="RoleCategorization_2">#3F51B5</color>
+    <color name="RoleCategorization_3">#FFA500</color>
+    <color name="RoleCategorization_4">#DB4455</color>
+    <color name="RoleCategorization_5">#56DDA2</color>
 </resources>

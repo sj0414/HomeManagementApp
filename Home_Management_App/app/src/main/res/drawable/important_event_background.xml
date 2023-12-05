@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+    <solid android:color="#E91E63"/> <!-- 붉은 색을 사용하여 중요한 이벤트를 표시합니다. -->
+    <size android:width="20dp" android:height="20dp"/> <!-- 동그라미 크기를 지정합니다. -->
+</shape>
