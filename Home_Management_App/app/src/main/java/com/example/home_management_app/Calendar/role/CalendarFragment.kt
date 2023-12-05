@@ -16,7 +16,7 @@ import com.example.home_management_app.Role_model.SimpleEvent
 import com.example.home_management_app.Calendar.CalendarUtils
 import com.example.home_management_app.Calendar.ScheduleActionBottomSheetDialogFragment
 import com.example.home_management_app.Calendar.vertical.VerticalRecyclerCalendarAdapter
-import com.example.home_management_app.databinding.FragmentRoleManagementBinding
+import com.example.home_management_app.databinding.FragmentCalendarBinding
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.database.DatabaseReference
 import java.util.Calendar
@@ -28,7 +28,7 @@ class CalendarFragment : Fragment(), OnEventChangeListener {
     private val eventMap: HashMap<Int, List<SimpleEvent>> = HashMap()
     // 받아온 데이터를 받을 리스트
     lateinit var FDB : DatabaseReference
-    lateinit var binding: FragmentRoleManagementBinding
+    lateinit var binding: FragmentCalendarBinding
     private val configuration: RecyclerCalendarConfiguration =
         RecyclerCalendarConfiguration(
             calenderViewType = RecyclerCalendarConfiguration.CalenderViewType.VERTICAL,
@@ -84,7 +84,7 @@ class CalendarFragment : Fragment(), OnEventChangeListener {
         savedInstanceState: Bundle?
     ): View? {
 
-        binding = FragmentRoleManagementBinding.inflate(layoutInflater)
+        binding = FragmentCalendarBinding.inflate(layoutInflater)
 
         // FloatingActionButton 설정
         val fab: FloatingActionButton = binding.fab
