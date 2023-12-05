@@ -2,7 +2,11 @@
 <!-- database 연결 필요 -->
 <resources>
     <string-array name="role_arrays">
-        <item>아빠</item>
         <item>엄마</item>
+        <item>아빠</item>
+        <item>아들</item>
+        <item>딸</item>
+        <item>할머니</item>
+        <item>할아버지</item>
     </string-array>
 </resources>

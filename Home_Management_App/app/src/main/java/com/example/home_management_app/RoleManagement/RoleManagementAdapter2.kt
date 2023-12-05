@@ -14,7 +14,6 @@ class RoleManagementAdapter2(val taskList: MutableList<TaskData>) : RecyclerView
 
     inner class ViewHolder(val binding: FragmentRoleManagementItemBinding) : RecyclerView.ViewHolder(binding.root) {
         init {
-            //
         }
     }
 
