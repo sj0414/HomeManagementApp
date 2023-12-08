@@ -4,7 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import com.example.ForYouTeenFragment
+import com.example.home_management_app.for_you_teen.ForYouTeenFragment
 import com.example.home_management_app.Calendar.role.CalendarFragment
 import com.example.home_management_app.for_you_adult.ForYouAdultFragment
 import com.example.home_management_app.calculatorFragment.CalculatorFragment
