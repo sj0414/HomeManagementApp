@@ -1,26 +1,23 @@
-package com.example.home_management_app.for_you_adult
+package com.example.home_management_app.for_you_teen
 
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import com.example.home_management_app.databinding.FragmentForYouAdult1Binding
+import com.example.home_management_app.R
+import com.example.home_management_app.databinding.FragmentForYouTeenBinding
 import java.util.Calendar
 
-class ForYouAdult1Fragment : Fragment() {
-    private lateinit var binding: FragmentForYouAdult1Binding
+class ForYouTeenFragment : Fragment() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+    lateinit var binding : FragmentForYouTeenBinding
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
+        inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentForYouAdult1Binding.inflate(inflater, container, false)
+        binding = FragmentForYouTeenBinding.inflate(layoutInflater)
 
         loadSchoolNotice(2023, Calendar.DECEMBER, 9)
 
@@ -50,10 +47,10 @@ class ForYouAdult1Fragment : Fragment() {
                     "강연장소 : 전주(전북교육청 창조나래(별관) 3층 시청각실)\n" +
                     "\n" +
                     "주요경력 : 서울대학교 사범대학 교수" +
-                            "                    \n" +
-                            "                    미네소타대학교 대학원 박사" +
-                            "                    \n" +
-                            "                    EBS<미래교육 플러스>, tvn<유퀴즈>\n" +
+                    "                    \n" +
+                    "                    미네소타대학교 대학원 박사" +
+                    "                    \n" +
+                    "                    EBS<미래교육 플러스>, tvn<유퀴즈>\n" +
                     " \n" +
                     "\n" +
                     "▣ 강의주제: AI시대, 변화하는 교육 따라잡기\n" +
@@ -74,5 +71,3 @@ class ForYouAdult1Fragment : Fragment() {
         return get(Calendar.YEAR) == year && get(Calendar.MONTH) == month && get(Calendar.DAY_OF_MONTH) == day
     }
 }
-
-
